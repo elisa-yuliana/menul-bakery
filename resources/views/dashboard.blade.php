@@ -15,13 +15,13 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #6d59a1;
         }
 
         th, td {
             padding: 10px;
             text-align: center;
-            border: 1px solid #ddd;
+            border: 1px solid #dddddd;
         }
 
         .btn-edit {
