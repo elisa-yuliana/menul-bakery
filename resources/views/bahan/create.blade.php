@@ -83,6 +83,22 @@
         </div>
 
         <div class="form-group">
+            <label>Satuan</label>
+            <select name="satuan" required>
+                <option value="kg">kg</option>
+                <option value="gram">gram</option>
+                <option value="sak">sak</option>
+                <option value="kantong">kantong</option>
+                <option value="pouch">pouch</option>
+                <option value="botol">botol</option>
+                <option value="sisir">sisir</option>
+                <option value="bungkus">bungkus</option>
+                <option value="lembar">lembar</option>
+                <option value="liter">liter</option>
+</select>
+</div>
+
+        <div class="form-group">
             <label>Harga</label>
             <input type="number" name="harga" required>
         </div>

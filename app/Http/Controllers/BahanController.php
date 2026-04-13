@@ -15,6 +15,7 @@ class BahanController extends Controller
     {
         $bahans = Bahan::all();
         return view('bahan.index', compact('bahans'));
+        
     }
     public function store(Request $request)
     {
@@ -23,6 +24,7 @@ class BahanController extends Controller
             'jenis_bahan'=> 'required',
             'kategori' => 'required',
             'jumlah_stok' => 'required|numeric',
+             'satuan' => 'required',
             'harga' => 'required|numeric',
             'stok_minimum' => 'required|numeric',
             'metode_pembayaran' => 'required',
@@ -32,7 +34,18 @@ class BahanController extends Controller
             $request['tanggal_jatuh_tempo'] = null;
         }
 
-        Bahan::create($request->all());
+            Bahan::create($request->only([
+    'nama_bahan',
+    'jenis_bahan',
+    'kategori',
+    'jumlah_stok',
+    'satuan',
+    'harga',
+    'stok_minimum',
+    'metode_pembayaran',
+    'tanggal_jatuh_tempo',
+]));
+            
 
         return redirect('/dashboard');
     }

@@ -13,6 +13,7 @@ class Bahan extends Model
         'jenis_bahan',
         'kategori',
         'jumlah_stok',
+        'satuan',
         'harga',
         'stok_minimum',
         'metode_pembayaran',

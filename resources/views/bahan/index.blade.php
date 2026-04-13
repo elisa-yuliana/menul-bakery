@@ -96,7 +96,7 @@
     <td>{{ $bahan->nama_bahan }}</td>
     <td>{{ $bahan->jenis_bahan }}</td>
     <td>{{ $bahan->kategori }}</td>
-    <td>{{ $bahan->jumlah_stok }}</td>
+    <td>{{ $bahan->jumlah_stok }} {{ $bahan->satuan }} </td>
     <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
     <td>{{ $bahan->stok_minimum }}</td>
     <td>{{ $bahan->metode_pembayaran }}</td>
