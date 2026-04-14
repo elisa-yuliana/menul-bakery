@@ -22,9 +22,15 @@
 
     <label>Satuan</label>
     <select name="satuan" required>
-        <option value="pcs" {{ $bahan->satuan == 'pcs' ? 'selected' : '' }}>pcs</option>
         <option value="kg" {{ $bahan->satuan == 'kg' ? 'selected' : '' }}>kg</option>
+        <option value="gram" {{ $bahan->satuan == 'gram' ? 'selected' : '' }}>gram</option>
         <option value="sak" {{ $bahan->satuan == 'sak' ? 'selected' : '' }}>sak</option>
+        <option value="kantong" {{ $bahan->satuan == 'kantong' ? 'selected' : '' }}>kantong</option>
+        <option value="pouch" {{ $bahan->satuan == 'pouch' ? 'selected' : '' }}>pouch</option>
+        <option value="botol" {{ $bahan->satuan == 'botol' ? 'selected' : '' }}>botol</option>
+        <option value="sisir" {{ $bahan->satuan == 'sisir' ? 'selected' : '' }}>sisir</option>
+        <option value="bungkus" {{ $bahan->satuan == 'bungkus' ? 'selected' : '' }}>bungkus</option>
+        <option value="lembar" {{ $bahan->satuan == 'lembar' ? 'selected' : '' }}>lembar</option>
         <option value="liter" {{ $bahan->satuan == 'liter' ? 'selected' : '' }}>liter</option>
     </select>
 
