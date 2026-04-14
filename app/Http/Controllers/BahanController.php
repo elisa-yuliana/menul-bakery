@@ -47,7 +47,7 @@ class BahanController extends Controller
 ]));
             
 
-        return redirect('/dashboard');
+        return redirect('/bahan');
     }
     public function edit($id)
     {
@@ -64,7 +64,7 @@ class BahanController extends Controller
         $bahan = Bahan::findOrFail($id);
         $bahan->update($request->all());
 
-        return redirect('/dashboard');
+        return redirect('/bahan');
     }
 
     public function destroy($id)
@@ -72,6 +72,6 @@ class BahanController extends Controller
         $bahan = Bahan::findOrFail($id);
         $bahan->delete();
 
-        return redirect('/dashboard');
+        return redirect('/bahan');
     }
 }
