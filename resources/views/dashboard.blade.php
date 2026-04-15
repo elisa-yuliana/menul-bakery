@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+    <html lang="id">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inventori Bahan Roti</title>
+        <title>Menul Bakery</title>
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     </head>
@@ -11,27 +11,32 @@
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block navbar sidebar min-vh-100 p-3">
-                <h4 class="text-white">Bakery Inv</h4>
+                <h4 class="text-white">Menul Bakery</h4>
                 <hr class="text-white">
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white {{ request()->is('/') ? : '' }}" href="{{ route('dashboard.index') }}">
-                            <i class="bi bi-speedometer2"></i> Dashboard
+                            <img src="{{ asset('img\icons\house-fill.svg') }}" class="me-2 icon-putih"> Dashboard
                         </a>
                     </li>
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white {{ request()->is('bahan') ? 'bg-secondary active' : '' }}" href="{{ route('bahan.index') }}">
-                            <i class="bi bi-box-seam"></i> Bahan
+                            <img src="{{ asset('img\icons\cart-fill.svg') }}" class="me-2 icon-putih"> Bahan
                         </a>
                     </li>
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white {{ request()->is('bahanMasuk') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_masuk.index') }}">
-                            <i class="bi bi-box-seam"></i> Bahan Masuk
+                            <img src="{{ asset('img\icons\cart-plus-fill.svg') }}" class="me-2 icon-putih"> Bahan Masuk
                         </a>
                     </li>
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white {{ request()->is('bahanKeluar') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_keluar.index') }}">
-                            <i class="bi bi-box-seam"></i> Bahan Keluar
+                            <img src="{{ asset('img\icons\cart-dash-fill.svg') }}" class="me-2 icon-putih"> Bahan Keluar
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('laporan') ? 'bg-secondary active' : '' }}" href="{{ route('laporan.index') }}">
+                            <img src="{{ asset('img\icons\file-earmark-bar-graph-fill.svg') }}" class="me-2 icon-putih"> Laporan
                         </a>
                     </li>
                 </ul>
@@ -65,6 +70,6 @@
                 </div>
             </div>
         </div>
-
+    </div>
     </body>
 </html>

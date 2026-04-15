@@ -1,4 +1,48 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+    <html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Menul Bakery</title>
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    </head>
+    <body class="bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block navbar sidebar min-vh-100 p-3">
+                <h4 class="text-white">Menul Bakery</h4>
+                <hr class="text-white">
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('/') ? : '' }}" href="{{ route('dashboard.index') }}">
+                            <img src="{{ asset('img\icons\house-fill.svg') }}" class="me-2 icon-putih"> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('bahan') ? 'bg-secondary active' : '' }}" href="{{ route('bahan.index') }}">
+                            <img src="{{ asset('img\icons\cart-fill.svg') }}" class="me-2 icon-putih"> Bahan
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('bahanMasuk') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_masuk.index') }}">
+                            <img src="{{ asset('img\icons\cart-plus-fill.svg') }}" class="me-2 icon-putih"> Bahan Masuk
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('bahanKeluar') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_keluar.index') }}">
+                            <img src="{{ asset('img\icons\cart-dash-fill.svg') }}" class="me-2 icon-putih"> Bahan Keluar
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('laporan') ? 'bg-secondary active' : '' }}" href="{{ route('laporan.index') }}">
+                            <img src="{{ asset('img\icons\file-earmark-bar-graph-fill.svg') }}" class="me-2 icon-putih"> Laporan
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+    <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+    <div class="container mt-4">
 
 @section('content')
 
@@ -27,52 +71,6 @@
 </a>
 
 <br><br>
-
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    .btn-export {
-        padding: 8px 12px;
-        background-color: #3498db;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        display: inline-block;
-    }
-
-    .jenis-masuk {
-        color: green;
-        font-weight: bold;
-    }
-
-    .jenis-keluar {
-        color: red;
-        font-weight: bold;
-    }
-
-    a.back-btn {
-        margin-top: 15px;
-        display: inline-block;
-        text-decoration: none;
-        padding: 6px 10px;
-        background-color: #7f8c8d;
-        color: white;
-        border-radius: 5px;
-    }
-</style>
 
 <!-- TABEL -->
 <table>
@@ -117,5 +115,3 @@
 <br>
 
 <a href="/dashboard" class="back-btn">⬅️ Kembali ke Dashboard</a>
-
-@endsection

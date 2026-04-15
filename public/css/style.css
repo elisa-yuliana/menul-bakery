@@ -69,3 +69,20 @@
         border: none;
         border-radius: 4px;
     }
+    .sidebar a svg {
+    fill: #f1c40f; /* Warna kuning emas */
+    transition: fill 0.3s; /* Animasi perubahan warna */
+    }
+
+    .sidebar a:hover svg {
+    fill: white; /* Berubah jadi putih saat kursor di atas menu */
+    }
+    
+    .icon-merah {
+    /* Filter ini akan merubah warna hitam menjadi merah */
+    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+    }
+    .icon-putih {
+    /* Filter ini akan merubah warna hitam menjadi putih */
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%);
+    }
