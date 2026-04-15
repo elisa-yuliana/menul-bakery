@@ -35,6 +35,11 @@
                             <img src="{{ asset('img\icons\cart-dash-fill.svg') }}" class="me-2 icon-putih"> Bahan Keluar
                         </a>
                     </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('laporan') ? 'bg-secondary active' : '' }}" href="{{ route('laporan.index') }}">
+                            <img src="{{ asset('img\icons\file-earmark-bar-graph-fill.svg') }}" class="me-2 icon-putih"> Laporan
+                        </a>
+                    </li>
                 </ul>
             </nav>
     <main class="col-md-10 ms-sm-auto px-md-4 py-4">
