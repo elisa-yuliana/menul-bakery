@@ -23,3 +23,6 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 dashboard2.blade.php
+index.blade-test.php
+test.php
+edit-test.php

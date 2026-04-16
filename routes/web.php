@@ -14,14 +14,14 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 Route::get('/bahan', [BahanController::class, 'index'])->name('bahan.index');
 // tambah bahan
 Route::get('/bahan/create', [BahanController::class, 'create']);
-Route::post('/bahan/store', [BahanController::class, 'store']);
+Route::post('/bahan/store', [BahanController::class, 'store'])->name('bahan.store');
 // edit bahan (FORM)
-Route::get('/bahan/{id}/edit', [BahanController::class, 'edit']);
+Route::get('/bahan/{id}/edit', [BahanController::class, 'edit'])->name('bahan.edit');
 // update bahan (INI YANG FIX)
-Route::put('/bahan/{id}', [BahanController::class, 'update']);
+Route::put('/bahan/{id}', [BahanController::class, 'update'])->name('bahan.update');
 
 // delete bahan
-Route::post('/bahan/{id}/delete', [BahanController::class, 'destroy']);
+Route::delete('/bahan/{id}/delete', [BahanController::class, 'destroy'])->name('bahan.destroy');
 
 // bahan masuk
 Route::get('/bahan-masuk', [BahanMasukController::class,'index'])->name('bahan_masuk.index');

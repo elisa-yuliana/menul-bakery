@@ -7,10 +7,6 @@ use App\Models\Bahan;
 
 class BahanController extends Controller
 {
-    public function create()
-    {
-        return view('bahan.create');
-    }
     public function index()
     {
         $bahans = Bahan::all();
@@ -34,20 +30,9 @@ class BahanController extends Controller
             $request['tanggal_jatuh_tempo'] = null;
         }
 
-            Bahan::create($request->only([
-    'nama_bahan',
-    'jenis_bahan',
-    'kategori',
-    'jumlah_stok',
-    'satuan',
-    'harga',
-    'stok_minimum',
-    'metode_pembayaran',
-    'tanggal_jatuh_tempo',
-]));
-            
+            Bahan::create($request->all());
 
-        return redirect('/bahan');
+        return redirect()->route('bahan.index')->with('success', 'Bahan berhasil ditambahkan.');
     }
     public function edit($id)
     {
@@ -57,6 +42,16 @@ class BahanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_bahan' => 'required',
+            'jenis_bahan'=> 'required',
+            'kategori' => 'required',
+            'jumlah_stok' => 'required|numeric',
+            'satuan' => 'required',
+            'harga' => 'required|numeric',
+            'stok_minimum' => 'required|numeric',
+            'metode_pembayaran' => 'required',
+        ]);
         if ($request->metode_pembayaran == 'cash') {
             $request['tanggal_jatuh_tempo'] = null;
         }
@@ -64,7 +59,7 @@ class BahanController extends Controller
         $bahan = Bahan::findOrFail($id);
         $bahan->update($request->all());
 
-        return redirect('/bahan');
+        return redirect()->route('bahan.index')->with('success', 'Data diperbarui!');
     }
 
     public function destroy($id)
@@ -72,6 +67,6 @@ class BahanController extends Controller
         $bahan = Bahan::findOrFail($id);
         $bahan->delete();
 
-        return redirect('/bahan');
+        return redirect()->route('bahan.index')->with('success', 'Data dihapus!');
     }
 }
