@@ -26,7 +26,7 @@ Route::delete('/bahan/{id}/delete', [BahanController::class, 'destroy'])->name('
 // bahan masuk
 Route::get('/bahan-masuk', [BahanMasukController::class,'index'])->name('bahan_masuk.index');
 Route::get('/bahan-masuk/create', [BahanMasukController::class, 'create']);
-Route::post('/bahan-masuk/store', [BahanMasukController::class, 'store']);
+Route::post('/bahan-masuk/store', [BahanMasukController::class, 'store'])->name('bahan_masuk.store');
 
 // bahan keluar
 Route::get('/bahan-keluar', [BahanKeluarController::class,'index'])->name('bahan_keluar.index');

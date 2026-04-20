@@ -164,7 +164,7 @@
                                         data-target="harga" 
                                         value="{{ number_format($bahan->harga, 0, ',', '.') }}">
 
-                                    <input type="hidden" name="harga" id="harga" value="{{ $bahan->harga }}">
+                            <input type="hidden" name="harga" id="harga" value="{{ $bahan->harga }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Stok Minimum</label>
