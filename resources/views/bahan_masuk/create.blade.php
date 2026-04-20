@@ -64,7 +64,7 @@
 
         <div class="form-group">
             <label>Bahan</label>
-            <select name="bahan_id" required>
+            <select name="bahan_id" class="searchable" required>
                 @foreach($bahans as $bahan)
                     <option value="{{ $bahan->id }}">{{ $bahan->nama_bahan }}</option>
                 @endforeach
@@ -87,5 +87,19 @@
     <a href="/dashboard" class="btn-back">⬅️ Kembali ke Dashboard</a>
 
 </div>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.searchable').select2({
+            placeholder: "Cari bahan...",
+            width: '100%'
+        });
+    });
+</script>
 
 @endsection
