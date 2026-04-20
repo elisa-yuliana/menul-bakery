@@ -49,7 +49,7 @@
                         <h5 class="mb-0">Daftar Stok Bahan Roti</h5>
                         <div>
                             <button type="button" class="btn btn-text btn-light btn-sm " data-bs-toggle="modal" data-bs-target="#modalTambahBahan">
-                                + Tambah Bahan bahan
+                                + Tambah Bahan Masuk
                             </button>
                         </div>
                     </div>
