@@ -188,10 +188,6 @@
                     </div>
                 </form>
             </div>
-            
-        </tr>
-            </tbody>
-        </table>
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('js/format-rupiah.js') }}"></script>
     </body>
