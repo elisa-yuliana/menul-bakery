@@ -1,118 +1,112 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Bahan Keluar</title>
 
-@section('content')
+    <style>
+        body {
+            background-color: #f5f6fa;
+            font-family: Arial, sans-serif;
+        }
 
-<h2>📤 Bahan Keluar</h2>
+        .page-wrapper {
+            max-width: 650px;
+            margin: 50px auto;
+        }
 
-<style>
-    .form-box {
-        max-width: 500px;
-        margin: 20px auto;
-        padding: 20px;
-        background: #f8faf9;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
+        .form-box {
+            padding: 25px;
+            background: #f8faf9;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
 
-    .form-group {
-        margin-bottom: 15px;
-    }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    label {
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-    }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-    input, select {
-        width: 100%;
-        padding: 8px;
-        border-radius: 6px;
-        border: 1px solid #888787;
-    }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
 
-    .btn-submit {
-        width: 100%;
-        padding: 10px;
-        background-color: #2ecc71;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #888787;
+        }
 
-    .btn-submit:hover {
-        background-color: #27ae60;
-    }
+        .btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-    .btn-back {
-        display: inline-block;
-        margin-top: 15px;
-        padding: 8px 12px;
-        background-color: #7f8c8d;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-    }
+        .btn-submit:hover {
+            background-color: #27ae60;
+        }
 
-    .error {
-        color: red;
-        margin-bottom: 10px;
-    }
-</style>
+        .btn-back {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 12px;
+            background-color: #7f8c8d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
 
-<div class="form-box">
+<div class="page-wrapper">
+    <div class="form-box">
 
-    <form action="/bahan-keluar/store" method="POST">
-        @csrf
+        <h2> Bahan Keluar</h2>
 
-        <div class="form-group">
-            <label>Bahan</label>
-            <select name="bahan_id" class="searchable"required>
-                @foreach($bahans as $bahan)
-                    <option value="{{$bahan->id}}">
-                        {{ $bahan->nama_bahan }}
-</option>
-@endforeach
-</select>
+        <form action="/bahan-keluar/store" method="POST">
+            @csrf
+
+            <div class="form-group">
+                <label>Bahan</label>
+                <select name="bahan_id" class="searchable" required>
+                    @foreach($bahans as $bahan)
+                        <option value="{{ $bahan->id }}">
+                            {{ $bahan->nama_bahan }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Jumlah Keluar</label>
+                <input type="number" name="jumlah_keluar" required>
+            </div>
+
+            <div class="form-group">
+                <label>Tanggal</label>
+                <input type="date" name="tanggal_keluar" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Simpan</button>
+        </form>
+
+    </div>
 </div>
 
-<div class="form-group">
-    <label>Jumlah Keluar</label>
-    <input type="number" name="jumlah_keluar"required>
-</div>
-
-<div class="form-group">
-    <label>Tanggal</label>
-    <input type="date" name="tanggal_keluar"required>
-</div>
-
-<button type="submit" class="btn-submit">Simpan</button>
-</form>
-
-<a href="/dashboard" class="btn-back"> ⬅️ Kembali ke Dashboard</a>
-
-</div>
-
-</div>
-
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('.searchable').select2({
-            placeholder: "Cari bahan...",
-            width: '100%'
-        });
-    });
-</script>
-
-@endsection
-
-
-
-
+</body>
+</html>
