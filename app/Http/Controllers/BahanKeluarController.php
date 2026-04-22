@@ -11,9 +11,10 @@ class BahanKeluarController extends Controller
     public function index()
     {
         $data = BahanKeluar::with('bahan')->get();
-        return view('bahan_keluar.index', compact('data'));
+        $bahans = Bahan::all();
+
+        return view('bahan_keluar.index', compact('data', 'bahans'));
     }
-    //tampil form
     public function create()
 {
     $bahans = Bahan::all();
@@ -42,6 +43,6 @@ class BahanKeluarController extends Controller
             $bahan->jumlah_stok -= $request->jumlah_keluar;
             $bahan->save();
 
-            return redirect('/bahan')->with('success', 'Bahan keluar berhasil');
+            return redirect('/bahan-keluar')->with('success', 'Bahan keluar berhasil');
     }
 }
