@@ -8,17 +8,27 @@ use App\Models\BahanMasuk;
 
 class BahanMasukController extends Controller
 {
-   public function index()
-    {
-        // Mengambil data riwayat bahan masuk untuk tabel
-        $data = BahanMasuk::with('bahan')->latest()->get();
+   public function index(Request $request)
+        {
+            $bahans = Bahan::all(); 
 
-        // Mengambil semua daftar bahan untuk pilihan di dropdown modal
-        $bahans = Bahan::all(); 
+            // 1. Ambil query dasar
+            $query = BahanMasuk::with('bahan')->latest();
 
-        // Kirim keduanya ke view yang sama
-        return view('bahan_masuk.index', compact('data', 'bahans'));
-    }
+            // 2. Cek apakah user ingin melihat "Semua Data"
+            if ($request->has('all')) {
+                $tanggalDipilih = null; // Kosongkan input tanggal di view
+            } else {
+                // Jika tidak klik "Semua", gunakan filter tanggal (default: hari ini)
+                $tanggalDipilih = $request->get('filter_tanggal', now()->toDateString());
+                $query->whereDate('tanggal_masuk', $tanggalDipilih);
+            }
+
+            // 3. Eksekusi query
+            $data = $query->get();
+
+            return view('bahan_masuk.index', compact('data', 'bahans', 'tanggalDipilih'));
+        }
     public function store(Request $request)
     {
         

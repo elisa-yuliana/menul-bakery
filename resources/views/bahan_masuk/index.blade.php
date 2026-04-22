@@ -1,56 +1,23 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menul Bakery</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
-</head>
+@extends('layouts.app')
 
-<body class="bg-light">
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block navbar sidebar min-vh-100 p-3">
-                <h4 class="text-white">Menul Bakery</h4>
-                <hr class="text-white">
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('/') ? : '' }}" href="{{ route('dashboard.index') }}">
-                            <img src="{{ asset('img\icons\house-fill.svg') }}" class="me-2 icon-putih"> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahan') ? 'bg-secondary active' : '' }}" href="{{ route('bahan.index') }}">
-                            <img src="{{ asset('img\icons\cart-fill.svg') }}" class="me-2 icon-putih"> Bahan
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahanMasuk') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_masuk.index') }}">
-                            <img src="{{ asset('img\icons\cart-plus-fill.svg') }}" class="me-2 icon-putih"> Bahan Masuk
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahanKeluar') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_keluar.index') }}">
-                            <img src="{{ asset('img\icons\cart-dash-fill.svg') }}" class="me-2 icon-putih"> Bahan Keluar
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('laporan') ? 'bg-secondary active' : '' }}" href="{{ route('laporan.index') }}">
-                            <img src="{{ asset('img\icons\file-earmark-bar-graph-fill.svg') }}" class="me-2 icon-putih"> Laporan
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+@section('content')
                 <div class="card shadow">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Daftar Stok Bahan Roti</h5>
-                        <div>
-                            <button type="button" class="btn btn-text btn-light btn-sm " data-bs-toggle="modal" data-bs-target="#modalTambahBahan">
+                    <div class="card-header text-success d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">Daftar Bahan Masuk</h3>
+                        <div class="header-actions d-flex align-items-center py-1 mt-2">
+                            <form action="{{ route('bahan_masuk.index') }}" method="GET" class="filter-form">
+                                <input type="date" name="filter_tanggal" class="input-date border-dark" 
+                                        value="{{ $tanggalDipilih }}" onchange="this.form.submit()">
+                                <a href="{{ route('bahan_masuk.index') }}" class="btn btn-light border-dark btn-sm fw-bold text-dark">
+                                    Hari Ini
+                                </a>
+                                <button type="submit" name="all" value="true" class="btn btn-light border-dark btn-sm fw-bold text-dark">
+                                    Semua Data
+                                </button>
+                                <button type="button" class="btn btn-light border-dark btn-sm fw-bold text-dark " data-bs-toggle="modal" data-bs-target="#modalTambahBahan">
                                 + Tambah Bahan Masuk
-                            </button>
+                                </button>
+                            </form>
                         </div>
                     </div>
 
@@ -89,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-        </main>
+                
                 <div class="modal fade" id="modalTambahBahan" tabindex="-1" role="dialog">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -128,6 +95,9 @@
                         </div>
                     </div>
                 </div>
+            @endsection
+
+            @push('scripts')
             <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
             <script src="{{ asset('js/format-rupiah.js') }}"></script>
             <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -141,6 +111,7 @@
                     });
                 });
             </script>
+            @endpush
         </div>
     </div>
 </body>
