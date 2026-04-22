@@ -7,6 +7,10 @@
         transition: 0.3s;
     }
 
+    .card-custom{
+        border:none;
+        border-left: 5px solid;
+    }
     .nav-link:hover {
         background-color: rgba(255, 255, 255, 0.43);
         border-radius: 5px;
@@ -90,4 +94,46 @@
     .icon-putih {
     /* Filter ini akan merubah warna hitam menjadi putih */
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%);
+    }
+    /* Container Utama Header */
+    .header-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center; /* Menyeimbangkan judul dengan grup tombol */
+    }
+
+    /* Grup Tombol dan Filter */
+    .header-actions {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        display: flex;
+        align-items: center; /* Kunci utama agar semua elemen sejajar vertikal */
+        gap: 10px; /* Jarak antar elemen */
+    }
+
+    .filter-form {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Samakan Tinggi Semua Elemen (35px sebagai standar) */
+    .input-date, 
+    .btn-today 
+    .btn-add {
+        height: 35px;
+        padding: 0 12px;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center; /* Menengahkan teks di dalam tombol secara vertikal */
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        box-sizing: border-box; /* Memastikan padding tidak merusak ukuran tinggi */
+        text-decoration: none;
+    }
+
+    /* Styling Khusus Input Date */
+    .input-date {
+        background-color: white;
+        color: #333;
     }

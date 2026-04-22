@@ -51,7 +51,8 @@ class LaporanController extends Controller
         ];
     });
 
-    $laporan = $masuk->merge($keluar)
+    $laporan = collect($masuk)
+        ->concat($keluar)
         ->sortByDesc('tanggal')
         ->values();
 
@@ -92,7 +93,8 @@ class LaporanController extends Controller
             ];
         });
 
-        $laporan = $masuk->merge($keluar)
+        $laporan = collect($masuk)
+            ->concat($keluar)
             ->sortByDesc('tanggal')
             ->values();
 

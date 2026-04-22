@@ -6,29 +6,53 @@
     <title>Menul Bakery</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 </head>
-<body>
 
-<div class="container">
-
-    <div class="sidebar">
-        <h2>🍞 Menul</h2>
-        <a href="/dashboard">🏠 Dashboard</a>
-        <a href="/bahan">📦 Data Bahan</a>
-        <a href="/bahan-masuk">📥 Bahan Masuk</a>
-        <a href="/bahan-keluar">📤 Bahan Keluar</a>
-        <a href="/laporan">📊 Laporan</a>
-    </div>
-
-    <div class="content">
-        <div class="header">
-            <h3>Menul Bakery System</h3>
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block navbar sidebar min-vh-100 p-3">
+                <h4 class="text-white">Menul Bakery</h4>
+                <hr class="text-white">
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('/') ? : '' }}" href="{{ route('dashboard.index') }}">
+                            <img src="{{ asset('img\icons\house-fill.svg') }}" class="me-2 icon-putih"> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('bahan') ? 'bg-secondary active' : '' }}" href="{{ route('bahan.index') }}">
+                            <img src="{{ asset('img\icons\cart-fill.svg') }}" class="me-2 icon-putih"> Bahan
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('bahanMasuk') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_masuk.index') }}">
+                            <img src="{{ asset('img\icons\cart-plus-fill.svg') }}" class="me-2 icon-putih"> Bahan Masuk
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('bahanKeluar') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_keluar.index') }}">
+                            <img src="{{ asset('img\icons\cart-dash-fill.svg') }}" class="me-2 icon-putih"> Bahan Keluar
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('laporan') ? 'bg-secondary active' : '' }}" href="{{ route('laporan.index') }}">
+                            <img src="{{ asset('img\icons\file-earmark-bar-graph-fill.svg') }}" class="me-2 icon-putih"> Laporan
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+                @yield('content')
+            </main>
         </div>
-
-        @yield('content')
     </div>
 
-</div>
-
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    @stack('scripts') 
 </body>
+
 </html>
