@@ -14,7 +14,7 @@
                                 <button type="submit" name="all" value="true" class="btn btn-light border-dark btn-sm fw-bold text-dark">
                                     Semua Data
                                 </button>
-                                <button type="button" class="btn btn-light border-dark btn-sm fw-bold text-dark " data-bs-toggle="modal" data-bs-target="#modalTambahBahan">
+                                <button type="button" class="btn btn-light border-dark btn-sm fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#modalTambahBahan">
                                 + Tambah Bahan Masuk
                                 </button>
                             </form>
