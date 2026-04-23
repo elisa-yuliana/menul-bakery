@@ -8,19 +8,36 @@ use App\Models\BahanKeluar;
 
 class BahanKeluarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = BahanKeluar::with('bahan')->get();
+        $tanggalDipilih = $request->filter_tanggal ?? date('Y-m-d');
+
+        $query = BahanKeluar::with('bahan');
+
+        if ($request->has('all')) {
+            $data = $query->orderBy('created_at', 'desc')->get();
+
+        } elseif ($request->has('today')) {
+            $data = $query->whereDate('tanggal_keluar', date('Y-m-d'))
+                ->orderBy('created_at', 'desc')
+                ->get();
+            $tanggalDipilih = date('Y-m-d');
+        } else {
+            $data = $query->whereDate('tanggal_keluar', $tanggalDipilih)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
         $bahans = Bahan::all();
 
-        return view('bahan_keluar.index', compact('data', 'bahans'));
+        return view('bahan_keluar.index', compact('data', 'bahans', 'tanggalDipilih'));
     }
     public function create()
 {
     $bahans = Bahan::all();
     return view('bahan_keluar.create', compact('bahans'));
 }
-    //simpan data
+   
     public function store(Request $request)
     {
         $request->validate([
