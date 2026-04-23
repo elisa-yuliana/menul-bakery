@@ -19,6 +19,8 @@ Route::post('/bahan/store', [BahanController::class, 'store'])->name('bahan.stor
 Route::get('/bahan/{id}/edit', [BahanController::class, 'edit'])->name('bahan.edit');
 // update bahan (INI YANG FIX)
 Route::put('/bahan/{id}', [BahanController::class, 'update'])->name('bahan.update');
+//bahan lunas
+Route::post('/bahan/lunas/{id}', [DashboardController::class, 'tandaiLunas'])->name('bahan.lunas');
 
 // delete bahan
 Route::delete('/bahan/{id}/delete', [BahanController::class, 'destroy'])->name('bahan.destroy');

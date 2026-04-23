@@ -10,6 +10,15 @@
                             </button>
                         </div>
                     </div>
+                    <div class="card-header text-primary d-flex justify-content-between align-items-center">
+                        <div class="input-group">
+                            <input type="text" id="cariBahan" class="form-control" placeholder="Ketik nama bahan untuk mencari...">
+                            <span class="input-group-text bg-primary text-white">
+                                <img src="{{ ('img\icons\search.svg') }}" class=" align-items-center icon-putih">
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
                     @if(session('success'))
                         <div class="alert alert-success m-3">
@@ -35,32 +44,47 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $No = 1; @endphp
+                                    @php 
+                                        $No = 1; 
+                                        // Ambil tanggal besok untuk pembanding
+                                        $besok = \Carbon\Carbon::now()->addDay()->toDateString();
+                                    @endphp
 
                                     @forelse($bahans as $bahan)
-                                    <tr>
-                                        <td>{{ $No++ }}</td>
-                                        <td>{{ $bahan->nama_bahan }}</td>
-                                        <td>{{ $bahan->jenis_bahan }}</td>
-                                        <td>{{ $bahan->kategori }}</td>
-                                        <td>{{ $bahan->jumlah_stok }} {{ $bahan->satuan }} </td>
-                                        <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
-                                        <td>{{ $bahan->stok_minimum }}</td>
-                                        <td>{{ $bahan->metode_pembayaran }}</td>
-                                        <td>{{ $bahan->tanggal_jatuh_tempo ? $bahan->tanggal_jatuh_tempo->format('Y-m-d') : '-' }}</td>
-                                        <td>
-                                            <a href="{{ route('bahan.edit', $bahan->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                            <form action="{{ route('bahan.destroy', $bahan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bahan ini?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                        @php
+                                            // Logika: Kuning jika statusnya 'tempo' DAN tanggalnya adalah besok
+                                            $infoTempo = ($bahan->metode_pembayaran == 'tempo' && 
+                                                        optional($bahan->tanggal_jatuh_tempo)->toDateString() == $besok);
+                                        @endphp
+
+                                        <tr class="{{ $infoTempo ? 'table-warning' : '' }}">
+                                            <td>{{ $No++ }}</td>
+                                            <td>{{ $bahan->nama_bahan }}</td>
+                                            <td>{{ $bahan->jenis_bahan }}</td>
+                                            <td>{{ $bahan->kategori }}</td>
+                                            <td>{{ $bahan->jumlah_stok }} {{ $bahan->satuan }} </td>
+                                            <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
+                                            <td>{{ $bahan->stok_minimum }}</td>
+                                            <td>
+                                                {{-- Tambah sedikit badge agar lebih rapi --}}
+                                                <span class="badge {{ $bahan->metode_pembayaran == 'tempo' ? 'bg-danger' : 'bg-success' }}">
+                                                    {{ $bahan->metode_pembayaran }}
+                                                </span>
+                                            </td>
+                                            <td>{{ $bahan->tanggal_jatuh_tempo ? $bahan->tanggal_jatuh_tempo->format('d-m-Y') : '-' }}</td>
+                                            <td>
+                                                <a href="{{ route('bahan.edit', $bahan->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                                <form action="{{ route('bahan.destroy', $bahan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bahan ini?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                                </form>
+                                            </td>
+                                        </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="9" class="text-center">Tidak ada data bahan.</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="10" class="text-center">Tidak ada data bahan.</td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
@@ -149,6 +173,7 @@
         @push('scripts')
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('js/format-rupiah.js') }}"></script>
+        <script src="{{ asset('js/search-bahan.js') }}"></script>
         @endpush
     </body>
 </html>

@@ -42,7 +42,7 @@
                                          @forelse($data as $index => $d)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
-                                                <td>{{ $d->tanggal_masuk }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($d->tanggal_masuk)->format('d-m-Y') }}</td>
                                                 <td>{{ $d->bahan->nama_bahan }}</td>
                                                 <td>{{ $d->jumlah_masuk }}</td>
                                             </tr>
@@ -114,5 +114,4 @@
             @endpush
         </div>
     </div>
-</body>
-</html>
+
