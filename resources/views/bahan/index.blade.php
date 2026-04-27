@@ -74,12 +74,32 @@
                                             <td>{{ $bahan->tanggal_jatuh_tempo ? $bahan->tanggal_jatuh_tempo->format('d-m-Y') : '-' }}</td>
                                             <td>
                                                 <a href="{{ route('bahan.edit', $bahan->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                                <form action="{{ route('bahan.destroy', $bahan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bahan ini?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                                </form>
+                                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalHapus{{ $bahan->id }}">
+                                                    Hapus
+                                                </button>
                                             </td>
+                                            <div class="modal fade" id="modalHapus{{ $bahan->id }}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger text-white">
+                                                            <h5 class="modal-title">Konfirmasi Hapus</h5>
+                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <p>Apakah Anda yakin ingin menghapus bahan <strong>{{ $bahan->nama_bahan }}</strong>?</p>
+                                                            <p class="text-muted small">Tindakan ini tidak dapat dibatalkan dan akan menghapus histori terkait bahan ini.</p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <form action="{{ route('bahan.destroy', $bahan->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-success">Ya, Hapus Data</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </tr>
                                     @empty
                                         <tr>
