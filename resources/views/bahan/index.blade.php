@@ -52,19 +52,34 @@
 
                                     @forelse($bahans as $bahan)
                                         @php
-                                            // Logika: Kuning jika statusnya 'tempo' DAN tanggalnya adalah besok
+                                       // 1. Perbaikan: Tambahkan '$bahan->' sebelum stok_minimum
+                                            $infoMinim = ($bahan->jumlah_stok <= $bahan->stok_minimum);
+
+                                            // 2. Perbaikan: Cek apakah tanggal_jatuh_tempo ada sebelum menjalankan toDateString()
                                             $infoTempo = ($bahan->metode_pembayaran == 'tempo' && 
-                                                        optional($bahan->tanggal_jatuh_tempo)->toDateString() == $besok);
+                                                        $bahan->tanggal_jatuh_tempo && 
+                                                        $bahan->tanggal_jatuh_tempo->toDateString() == $besok);
+
+                                            // 3. Tentukan class baris (Danger/Merah lebih prioritas daripada Warning/Kuning)
+                                            $rowClass = '';
+                                            if ($infoMinim) {
+                                                $rowClass = 'table-danger';
+                                            } elseif ($infoTempo) {
+                                                $rowClass = 'table-warning';
+                                            }
                                         @endphp
 
-                                        <tr class="{{ $infoTempo ? 'table-warning' : '' }}">
+                                        <tr class="{{ $rowClass }}" style="font-size: 0.9rem;">
                                             <td>{{ $No++ }}</td>
                                             <td>{{ $bahan->nama_bahan }}</td>
                                             <td>{{ $bahan->jenis_bahan }}</td>
                                             <td>{{ $bahan->kategori }}</td>
                                             <td>{{ $bahan->jumlah_stok }} {{ $bahan->satuan }} </td>
                                             <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
-                                            <td>{{ $bahan->stok_minimum }}</td>
+                                            {{-- Berikan teks merah tebal jika stok limit agar lebih jelas --}}
+                                            <td class="{{ $infoMinim ? 'bg-danger' : '' }}">
+                                                {{ $bahan->jumlah_stok }} {{ $bahan->satuan }}
+                                            </td>
                                             <td>
                                                 {{-- Tambah sedikit badge agar lebih rapi --}}
                                                 <span class="badge {{ $bahan->metode_pembayaran == 'tempo' ? 'bg-danger' : 'bg-success' }}">

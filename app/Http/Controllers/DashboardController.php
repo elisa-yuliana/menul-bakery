@@ -20,13 +20,15 @@ class DashboardController extends Controller
         $datajatuhtempo = Bahan::where('metode_pembayaran','tempo')
                                 ->whereDate('tanggal_jatuh_tempo',$besok)
                                 ->get();
+        $stoklimit = Bahan::whereColumn('jumlah_stok','<=','stok_minimum')->get(); 
 
         return view('dashboard', compact(
             'bahans',
             'bahanMasuk',
             'bahanKeluar',
             'totalBahan',
-            'datajatuhtempo'
+            'datajatuhtempo',
+            'stoklimit'
         ));
     }
     public function tandaiLunas($id)

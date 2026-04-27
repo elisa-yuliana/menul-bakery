@@ -20,7 +20,7 @@ class BahanController extends Controller
             'jenis_bahan'=> 'required',
             'kategori' => 'required',
             'jumlah_stok' => 'required|numeric',
-             'satuan' => 'required',
+            'satuan' => 'required',
             'harga' => 'required|numeric',
             'stok_minimum' => 'required|numeric',
             'metode_pembayaran' => 'required',
