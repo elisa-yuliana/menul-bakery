@@ -4,18 +4,31 @@
                 <div class="card shadow">
                     <div class="card-header text-success d-flex justify-content-between align-items-center">
                         <h3 class="mb-0">Daftar Bahan Masuk</h3>
+
                         <div class="header-actions d-flex align-items-center py-1 mt-2">
                             <form action="{{ route('bahan_masuk.index') }}" method="GET" class="filter-form">
-                                <input type="date" name="filter_tanggal" class="input-date border-dark" 
-                                        value="{{ $tanggalDipilih }}" onchange="this.form.submit()">
-                                <a href="{{ route('bahan_masuk.index') }}" class="btn btn-light border-dark btn-sm fw-bold text-dark">
-                                    Hari Ini
-                                </a>
-                                <button type="submit" name="all" value="true" class="btn btn-light border-dark btn-sm fw-bold text-dark">
+
+                            <input type="date"
+                                name="filter_tanggal"
+                                class="input-date border-dark"
+                                value="{{ $tanggalDipilih ?? date('Y-m-d') }}"
+                                onchange="this.form.submit()">
+
+                                <button type="submit" name="today" value="true" 
+                                    class="btn btn-light border-dark btn-sm fw-bold text-dark">
+                                    Hari ini
+                                </button>
+
+                                <button type="submit" name="all" value="true"
+                                    class="btn btn-light border-dark btn-sm fw-bold text-dark">
                                     Semua Data
                                 </button>
-                                <button type="button" class="btn btn-light border-dark btn-sm fw-bold text-dark" data-bs-toggle="modal" data-bs-target="#modalTambahBahan">
-                                + Tambah Bahan Masuk
+
+                                <button type="button"
+                                    class="btn btn-light border-dark btn-sm fw-bold text-dark"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalTambahBahan">
+                                    + Tambah Bahan Masuk
                                 </button>
                             </form>
                         </div>
@@ -35,7 +48,9 @@
                                             <th>No</th>
                                             <th>Tanggal</th>
                                             <th>Bahan</th>
-                                            <th>Jumlah</th>
+                                            <th>Jumlah Stok Awal</th>
+                                            <th>Jumlah Stok Tambah</th>
+                                            <th>Jumah total</th>
                                         </tr>
                                 </thead>
                                     <tbody>
@@ -44,7 +59,9 @@
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($d->tanggal_masuk)->format('d-m-Y') }}</td>
                                                 <td>{{ $d->bahan->nama_bahan }}</td>
+                                                <td>{{ $d->bahan->jumlah_stok - $d->jumlah_masuk }}</td>
                                                 <td>{{ $d->jumlah_masuk }}</td>
+                                                <td>{{ $d->bahan->jumlah_stok}}</td>
                                             </tr>
                                              @empty
                                                 <tr>
@@ -112,6 +129,4 @@
                 });
             </script>
             @endpush
-        </div>
-    </div>
 

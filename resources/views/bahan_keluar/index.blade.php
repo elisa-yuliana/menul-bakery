@@ -14,10 +14,10 @@
                 value="{{ $tanggalDipilih ?? date('Y-m-d') }}"
                 onchange="this.form.submit()">
 
-            <button type="submit" name="today" value="true" 
+                <button type="submit" name="today" value="true" 
                     class="btn btn-light border-dark btn-sm fw-bold text-dark">
                     Hari ini
-</button>
+                </button>
 
                 <button type="submit" name="all" value="true"
                     class="btn btn-light border-dark btn-sm fw-bold text-dark">
@@ -29,55 +29,56 @@
                     data-bs-toggle="modal"
                     data-bs-target="#modalKeluar">
                     + Tambah Bahan Keluar
-</button>
-</form>
-</div>
-</div>
-
-@if(session('success'))
-    <div class="alert alert-success m-3">
-        {{ session('success') }}
+                </button>
+            </form>
+        </div>
     </div>
-@endif
 
-@if(session('error'))
-    <div class="alert alert-danger m-3">
-        {{ session('error') }}
-    </div>
-@endif
+            @if(session('success'))
+                <div class="alert alert-success m-3">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-<div class="card-body">
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
-                    <th>Bahan</th>
-                    <th>Jumlah Stok Awal</th>
-                    <th>Jumlah Stok Keluar</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($data as $index => $d)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $d->tanggal_keluar }}</td>
-                    <td>{{ $d->bahan->nama_bahan }}</td>
-                    <td>{{ $d->bahan->jumlah_stok + $d->jumlah_keluar }}</td>
-                    <td>{{ $d->jumlah_keluar }}</td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="4" class="text-center">
-                        Tidak ada data bahan keluar.
-                    </td>
-                    </tr>
-                    @endforelse
-            </tbody>
-        </table>
-    </div>
-</div>
+            @if(session('error'))
+                <div class="alert alert-danger m-3">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Bahan</th>
+                                <th>Jumlah Stok Awal</th>
+                                <th>Jumlah Stok Keluar</th>
+                                <th>jumlah total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($data as $index => $d)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ \Carbon\Carbon::parse($d->tanggal_keluar)->format('d-m-Y') }}</td>
+                                <td>{{ $d->bahan->nama_bahan }}</td>
+                                <td>{{ $d->bahan->jumlah_stok + $d->jumlah_keluar }}</td>
+                                <td>{{ $d->jumlah_keluar }}</td>
+                                <td>{{ $d->bahan->jumlah_stok}}</td>
+                            </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="9" class="text-center">Tidak ada data bahan keluar.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
 <div class="modal fade" id="modalKeluar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
