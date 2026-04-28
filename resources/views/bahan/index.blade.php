@@ -52,7 +52,7 @@
 
                                     @forelse($bahans as $bahan)
                                         @php
-                                       // 1. Perbaikan: Tambahkan '$bahan->' sebelum stok_minimum
+                                            // 1. Perbaikan: Tambahkan '$bahan->' sebelum stok_minimum
                                             $infoMinim = ($bahan->jumlah_stok <= $bahan->stok_minimum);
 
                                             // 2. Perbaikan: Cek apakah tanggal_jatuh_tempo ada sebelum menjalankan toDateString()
@@ -69,7 +69,7 @@
                                             }
                                         @endphp
 
-                                        <tr class="{{ $rowClass }}" style="font-size: 0.9rem;">
+                                        <tr class="{{ $rowClass }}">
                                             <td>{{ $No++ }}</td>
                                             <td>{{ $bahan->nama_bahan }}</td>
                                             <td>{{ $bahan->jenis_bahan }}</td>
@@ -83,9 +83,12 @@
                                                 }}
                                             </td>
                                             <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
-                                            {{-- Berikan teks merah tebal jika stok limit agar lebih jelas --}}
-                                            <td class="{{ $infoMinim ? 'bg-danger' : '' }}">
-                                                {{ $bahan->jumlah_stok }} {{ $bahan->satuan }}
+                                            <td>{{ $bahan->stok_minimum }}
+                                                {{ 
+                                                    $bahan->satuan == 'gram' ? 'G' : 
+                                                    ($bahan->satuan == 'liter' ? 'L' : 
+                                                    ($bahan->satuan == 'kg' ? 'Kg' : ucfirst($bahan->satuan))) 
+                                                }}
                                             </td>
                                             <td>
                                                 {{-- Tambah sedikit badge agar lebih rapi --}}

@@ -22,6 +22,18 @@ class DashboardController extends Controller
                                 ->get();
         $stoklimit = Bahan::whereColumn('jumlah_stok','<=','stok_minimum')->get(); 
 
+        $hariIni = Carbon::today();
+
+        // Menghitung berapa jenis bahan yang masuk hari ini
+        $bahanMasuk = BahanMasuk::whereDate('tanggal_masuk', $hariIni)
+            ->distinct('bahan_id')
+            ->count('bahan_id');
+
+        // Menghitung berapa jenis bahan yang keluar hari ini
+        $bahanKeluar = BahanKeluar::whereDate('tanggal_keluar', $hariIni)
+            ->distinct('bahan_id')
+            ->count('bahan_id');
+            
         return view('dashboard', compact(
             'bahans',
             'bahanMasuk',
