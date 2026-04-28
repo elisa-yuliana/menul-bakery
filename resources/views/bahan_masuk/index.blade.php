@@ -59,9 +59,27 @@
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($d->tanggal_masuk)->format('d-m-Y') }}</td>
                                                 <td>{{ $d->bahan->nama_bahan }}</td>
-                                                <td>{{ $d->bahan->jumlah_stok - $d->jumlah_masuk }}</td>
-                                                <td>{{ $d->jumlah_masuk }}</td>
-                                                <td>{{ $d->bahan->jumlah_stok}}</td>
+                                                <td>{{ $d->bahan->jumlah_stok - $d->jumlah_masuk }}
+                                                        {{ 
+                                                            $d->bahan->satuan == 'gram' ? 'G' : 
+                                                            ($d->bahan->satuan == 'liter' ? 'L' : 
+                                                            ($d->bahan->satuan == 'kg' ? 'Kg' : ucfirst($d->bahan->satuan))) 
+                                                        }} 
+                                                </td>
+                                                <td>{{ $d->jumlah_masuk }} 
+                                                        {{ 
+                                                            $d->bahan->satuan == 'gram' ? 'G' : 
+                                                            ($d->bahan->satuan == 'liter' ? 'L' : 
+                                                            ($d->bahan->satuan == 'kg' ? 'Kgs' : ucfirst($d->bahan->satuan))) 
+                                                        }}
+                                                </td>
+                                                <td>{{ $d->bahan->jumlah_stok}} 
+                                                        {{ 
+                                                            $d->bahan->satuan == 'gram' ? 'G' : 
+                                                            ($d->bahan->satuan == 'liter' ? 'L' : 
+                                                            ($d->bahan->satuan == 'kg' ? 'Kg' : ucfirst($d->bahan->satuan))) 
+                                                        }}
+                                                </td>
                                             </tr>
                                              @empty
                                                 <tr>
