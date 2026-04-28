@@ -62,7 +62,14 @@
                                             <td>{{ $bahan->nama_bahan }}</td>
                                             <td>{{ $bahan->jenis_bahan }}</td>
                                             <td>{{ $bahan->kategori }}</td>
-                                            <td>{{ $bahan->jumlah_stok }} {{ $bahan->satuan }} </td>
+                                            <td>
+                                                {{ $bahan->jumlah_stok }} 
+                                                {{ 
+                                                    $bahan->satuan == 'gram' ? 'G' : 
+                                                    ($bahan->satuan == 'liter' ? 'L' : 
+                                                    ($bahan->satuan == 'kg' ? 'Kg' : ucfirst($bahan->satuan))) 
+                                                }}
+                                            </td>
                                             <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
                                             <td>{{ $bahan->stok_minimum }}</td>
                                             <td>
@@ -146,16 +153,16 @@
                         <div class="mb-3">
                             <label class="form-label">Satuan</label>
                             <select name="satuan" class="form-select">
-                                <option value="kg">kg</option>
-                                <option value="gram">gram</option>
-                                <option value="sak">sak</option>
-                                <option value="kantong">kantong</option>
-                                <option value="pouch">pouch</option>
-                                <option value="botol">botol</option>
-                                <option value="sisir">sisir</option>
-                                <option value="bungkus">bungkus</option>
-                                <option value="lembar">lembar</option>
-                                <option value="liter">liter</option>
+                                <option value="Kg">Kg</option>
+                                <option value="G">G</option>
+                                <option value="Sak">Sak</option>
+                                <option value="Kantong">Kantong</option>
+                                <option value="Pouch">Pouch</option>
+                                <option value="Botol">Botol</option>
+                                <option value="Sisir">Sisir</option>
+                                <option value="Bungkus">Bungkus</option>
+                                <option value="Lembar">Lembar</option>
+                                <option value="L">L</option>
                             </select>
                         </div>
                         <div class="mb-3">
