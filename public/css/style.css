@@ -11,6 +11,12 @@
         border:none;
         border-left: 5px solid;
     }
+        .card-body {
+        position: relative;
+        overflow: hidden; /* Supaya ikon tidak keluar jalur jika ukurannya besar */
+    }
+
+
     .nav-link:hover {
         background-color: rgba(255, 255, 255, 0.43);
         border-radius: 5px;
@@ -86,7 +92,13 @@
     .sidebar a:hover svg {
     fill: white; /* Berubah jadi putih saat kursor di atas menu */
     }
-    
+    /* Mengatur posisi ikon ke pojok kanan bawah */
+    .icon-right-bottom {
+        position: absolute;
+        right: 15px;      /* Jarak dari kanan */
+        bottom: 15px;     /* Jarak dari bawah */
+        line-height: 0;   /* Menghilangkan space kosong di bawah gambar */
+    }
     .icon-merah {
     /* Filter ini akan merubah warna hitam menjadi merah */
     filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
@@ -94,6 +106,12 @@
     .icon-putih {
     /* Filter ini akan merubah warna hitam menjadi putih */
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%);
+    }
+    .icon-custom {
+        width: 50px;      /* Sesuaikan ukuran ikon */
+        height: auto;
+        opacity: 0.5;     /* Opsional: agar terlihat seperti watermark */
+        filter: brightness(0) invert(1);
     }
     /* Container Utama Header */
     .header-wrapper {

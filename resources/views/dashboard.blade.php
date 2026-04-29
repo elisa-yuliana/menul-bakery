@@ -12,6 +12,9 @@
                             <h2 class="display-4 mb-0 fw-bold">{{ $bahans->count() }}</h2>
                             <span class="ms-2 fs-5 text-white-100">Jenis</span>
                         </div>
+                            <span class="icon-right-bottom">
+                                <img src="{{ asset('img/icons/box-seam-fill.svg') }}" class="icon-custom">
+                            </span>
                     </div>
                 </div>
             </div>
@@ -23,6 +26,9 @@
                             <h2 class="display-4 mb-0 fw-bold">{{ $bahanMasuk }}</h2>
                             <span class="ms-2 fs-5 text-white-100">Jenis</span>
                         </div>
+                            <span class="icon-right-bottom">
+                                <img src="{{ asset('img/icons/inbox-fill.svg') }}" class="icon-custom">
+                            </span>
                     </div>
                 </div>
             </div>
@@ -34,6 +40,9 @@
                             <h2 class="display-4 mb-0 fw-bold">{{ $bahanKeluar }}</h2>
                             <span class="ms-2 fs-5 text-white-100">Jenis</span>
                         </div>
+                            <span class="icon-right-bottom">
+                                <img src="{{ asset('img/icons/dropbox.svg') }}" class="icon-custom">
+                            </span>
                     </div>
                 </div>
             </div>
@@ -144,8 +153,7 @@
                                                 <img src="{{ asset('img/icons/check-lg.svg') }}" class="align-items-center icon-putih">
                                             </button>
                                         </td>
-
-                                                                                <div class="modal fade" id="modalTambahBahan{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                                            <div class="modal fade" id="modalTambahBahan{{ $item->id }}" tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
