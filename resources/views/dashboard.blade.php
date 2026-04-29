@@ -131,55 +131,55 @@
                             </td>
                             <td>{{ $item->stok_minimum }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('bahan.edit', $item->id) }}" class="btn btn-warning btn-sm p-0 px-2 text-white">
-                                        edit
-                                    </a>
-                                    <button type="button"
-                                            class="btn btn-success btn-sm p-0 px-2"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modalTambahBahan">
-                                            + Tambah
-                                    </button>
-                                </td>                            
-                            </td>
-                                <div class="modal fade" id="modalTambahBahan" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Tambah Bahan Baru</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="{{ route('bahan_masuk.store') }}" method="POST">
-                                                @csrf
-                                                <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label class="form-label">Cari Bahan</label>
-                                                        <select name="bahan_id" class="form-select js-select2" style="width: 100%" required>
-                                                            <option value="">-- Ketik Nama Bahan --</option>
-                                                            @foreach($bahans as $bahan)
-                                                                <option value="{{ $bahan->id }}">{{ $bahan->nama_bahan }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                </div>
+                                            <a href="{{ route('bahan.edit', $item->id) }}" class="btn btn-warning btn-sm p-0 px-2 text-white">
+                                                edit
+                                            </a>
 
-                                                <div class="mb-3">
-                                                    <label class="form-label">Jumlah Masuk</label>
-                                                    <input type="number" name="jumlah_masuk" class="form-control" placeholder="0" required>
-                                                </div>
+                                            <button type="button" class="btn btn-success btn-sm p-0 px-2" data-bs-toggle="modal" data-bs-target="#modalTambahBahan{{ $item->id }}">
+                                                <img src="{{ asset('img/icons/check-lg.svg') }}" class="align-items-center icon-putih">
+                                            </button>
+                                        </td>
 
-                                                <div class="mb-3">
-                                                    <label class="form-label">Tanggal</label>
-                                                    <input type="date" name="tanggal_masuk" class="form-control" value="{{ date('Y-m-d') }}" required>
-                                                </div>
+                                        <div class="modal fade" id="modalTambahBahan{{ $item->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Stok Bahan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+            <form action="{{ route('bahan_masuk.store', $item->id) }}" method="POST">
+                @csrf
+                <input type="hidden" name="bahan_id" value="{{ $item->id }}">
+               
+                <div class="modal-body text-start">
+                    <div class="mb-3">
+                        <label class="form-label">Jumlah Masuk</label>
+                        <input type="number" name="jumlah_masuk" class="form-control" placeholder="0" required>
+                    </div>
 
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-primary">Simpan Data</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tanggal</label>
+                        <input type="date" name="tanggal_masuk" class="form-control" value="{{ date('Y-m-d') }}" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
                                     </tr>
                                     @empty
                                     <tr>
@@ -194,7 +194,7 @@
         </div>
     </div>
 @endsection
-    @push('scripts')
+        @push('scripts')
             <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
             <script src="{{ asset('js/format-rupiah.js') }}"></script>
             <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -208,4 +208,4 @@
                     });
                 });
             </script>
-    @endpush
+        @endpush
