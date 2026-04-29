@@ -28,7 +28,7 @@
                                     class="btn btn-light border-dark btn-sm fw-bold text-dark"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalTambahBahan">
-                                    + Tambah Bahan Masuk
+                                    Input Bahan Masuk
                                 </button>
                             </form>
                         </div>
@@ -60,24 +60,21 @@
                                                 <td>{{ \Carbon\Carbon::parse($d->tanggal_masuk)->format('d-m-Y') }}</td>
                                                 <td>{{ $d->bahan->nama_bahan }}</td>
                                                 <td>{{ $d->bahan->jumlah_stok - $d->jumlah_masuk }}
-                                                        {{ 
-                                                            $d->bahan->satuan == 'gram' ? 'G' : 
-                                                            ($d->bahan->satuan == 'liter' ? 'L' : 
-                                                            ($d->bahan->satuan == 'kg' ? 'Kg' : ucfirst($d->bahan->satuan))) 
-                                                        }} 
+                                                       {{ 
+                                                            $d->bahan->satuan == 'gram' ? 'g' : 
+                                                            ($d->bahan->satuan) 
+                                                        }}
                                                 </td>
                                                 <td>{{ $d->jumlah_masuk }} 
                                                         {{ 
-                                                            $d->bahan->satuan == 'gram' ? 'G' : 
-                                                            ($d->bahan->satuan == 'liter' ? 'L' : 
-                                                            ($d->bahan->satuan == 'kg' ? 'Kgs' : ucfirst($d->bahan->satuan))) 
+                                                            $d->bahan->satuan == 'gram' ? 'g' : 
+                                                            ($d->bahan->satuan) 
                                                         }}
                                                 </td>
-                                                <td>{{ $d->bahan->jumlah_stok}} 
+                                                <td>{{ $d->stok_sekarang}} 
                                                         {{ 
-                                                            $d->bahan->satuan == 'gram' ? 'G' : 
-                                                            ($d->bahan->satuan == 'liter' ? 'L' : 
-                                                            ($d->bahan->satuan == 'kg' ? 'Kg' : ucfirst($d->bahan->satuan))) 
+                                                            $d->bahan->satuan == 'gram' ? 'g' : 
+                                                            ($d->bahan->satuan) 
                                                         }}
                                                 </td>
                                             </tr>

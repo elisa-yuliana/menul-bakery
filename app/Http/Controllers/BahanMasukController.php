@@ -9,49 +9,62 @@ use App\Models\BahanMasuk;
 class BahanMasukController extends Controller
 {
    public function index(Request $request)
-        {
-            $bahans = Bahan::all(); 
+{
+    $bahans = Bahan::all(); 
 
-            // 1. Ambil query dasar
-            $query = BahanMasuk::with('bahan')->latest();
+    // 1. Ambil query dasar dengan relasi
+    $query = BahanMasuk::with('bahan')->latest();
 
-            // 2. Cek apakah user ingin melihat "Semua Data"
-            if ($request->has('all')) {
-                $tanggalDipilih = null; // Kosongkan input tanggal di view
-            } else {
-                // Jika tidak klik "Semua", gunakan filter tanggal (default: hari ini)
-                $tanggalDipilih = $request->get('filter_tanggal', now()->toDateString());
-                $query->whereDate('tanggal_masuk', $tanggalDipilih);
-            }
+    // 2. Logika Filter
+    if ($request->has('all')) {
+        // Jika klik "Semua Data", jangan filter berdasarkan tanggal
+        $tanggalDipilih = null; 
+    } elseif ($request->has('today')) {
+        // JIKA KLIK TOMBOL "HARI INI", paksa tanggal ke hari ini (SANGAT PENTING)
+        $tanggalDipilih = now()->toDateString();
+        $query->whereDate('tanggal_masuk', $tanggalDipilih);
+    } else {
+        // Jika user memilih tanggal lewat input date, atau default pertama kali buka
+        $tanggalDipilih = $request->get('filter_tanggal', now()->toDateString());
+        $query->whereDate('tanggal_masuk', $tanggalDipilih);
+    }
 
-            // 3. Eksekusi query
-            $data = $query->get();
+    // 3. Eksekusi query
+    $data = $query->get();
 
-            return view('bahan_masuk.index', compact('data', 'bahans', 'tanggalDipilih'));
-        }
+    return view('bahan_masuk.index', compact('data', 'bahans', 'tanggalDipilih'));
+}
     public function store(Request $request)
-    {
-        
+{
     // 1. Validasi Data
     $request->validate([
-        'bahan_id' => 'required',
-        'jumlah_masuk' => 'required|numeric',
+        'bahan_id' => 'required|exists:bahans,id',
+        'jumlah_masuk' => 'required|numeric|min:1',
         'tanggal_masuk' => 'required|date',
     ]);
 
-    // 2. Simpan ke Tabel Bahan Masuk
+    // 2. Ambil data bahan dari database untuk mendapatkan stok saat ini
+    $bahan = Bahan::findOrFail($request->bahan_id);
+    
+    // Tentukan variabel pendukung
+    $stokAwal = $bahan->jumlah_stok; // Ini adalah angka SEBELUM ditambah
+    $jumlahMasuk = $request->jumlah_masuk;
+    $stokSekarang = $stokAwal + $jumlahMasuk; // Ini adalah hasil kalkulasi
+
+    // 3. Simpan ke Tabel Bahan Masuk (Snapshot Data)
     BahanMasuk::create([
         'bahan_id' => $request->bahan_id,
-        'jumlah_masuk' => $request->jumlah_masuk,
+        'stok_awal' => $stokAwal,    // Mengambil dari variabel $stokAwal
+        'jumlah_masuk' => $jumlahMasuk,
+        'stok_sekarang' => $stokSekarang, // Mengambil dari variabel $stokAkhir
         'tanggal_masuk' => $request->tanggal_masuk,
     ]);
 
-    // 3. UPDATE STOK DI TABEL BAHAN (PENTING!)
-    // Ini agar stok di tabel 'Bahan' juga ikut bertambah otomatis
-    $bahan = Bahan::find($request->bahan_id);
-    $bahan->jumlah_stok += $request->jumlah_masuk; 
+    // 4. UPDATE STOK DI TABEL BAHAN
+    // Kita gunakan nilai $stokAkhir yang sudah dihitung tadi
+    $bahan->jumlah_stok = $stokSekarang;
     $bahan->save();
 
     return redirect()->back()->with('success', 'Data bahan masuk berhasil disimpan!');
-    }
+}
 }

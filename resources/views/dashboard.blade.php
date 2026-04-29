@@ -7,7 +7,7 @@
             <div class="col-md-4">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Bahan Masuk</h5>
+                        <h5 class="card-title">Total Bahan</h5>
                         <div class="d-flex align-items-baseline">
                             <h2 class="display-4 mb-0 fw-bold">{{ $bahans->count() }}</h2>
                             <span class="ms-2 fs-5 text-white-100">Jenis</span>
@@ -29,9 +29,9 @@
             <div class="col-md-4">
                 <div class="card text-white bg-danger mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Bahan Masuk</h5>
+                        <h5 class="card-title">Bahan Keluar</h5>
                         <div class="d-flex align-items-baseline">
-                            <h2 class="display-4 mb-0 fw-bold">{{ $bahanMasuk }}</h2>
+                            <h2 class="display-4 mb-0 fw-bold">{{ $bahanKeluar }}</h2>
                             <span class="ms-2 fs-5 text-white-100">Jenis</span>
                         </div>
                     </div>
@@ -127,7 +127,12 @@
                         <tr style="font-size: 0.9rem;">
                             <td class="ps-3 align-middle">{{ $item->nama_bahan }}</td>
                             <td class="text-center align-middle">
-                                <span class="badge bg-danger">{{ $item->jumlah_stok }} {{ $item->satuan}}</span>
+                                <span class="badge bg-danger">{{ $item->jumlah_stok }} 
+                                        {{ 
+                                            $item->satuan == 'gram' ? 'g' : 
+                                            ($item->satuan) 
+                                        }}
+                                </span>
                             </td>
                             <td>{{ $item->stok_minimum }}</td>
                                 <td class="text-center">
@@ -140,46 +145,46 @@
                                             </button>
                                         </td>
 
-                                        <div class="modal fade" id="modalTambahBahan{{ $item->id }}" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Stok Bahan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-            <form action="{{ route('bahan_masuk.store', $item->id) }}" method="POST">
-                @csrf
-                <input type="hidden" name="bahan_id" value="{{ $item->id }}">
-               
-                <div class="modal-body text-start">
-                    <div class="mb-3">
-                        <label class="form-label">Jumlah Masuk</label>
-                        <input type="number" name="jumlah_masuk" class="form-control" placeholder="0" required>
-                    </div>
+                                                                                <div class="modal fade" id="modalTambahBahan{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Tambah Stok Bahan</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                        @if ($errors->any())
+                                                            <div class="alert alert-danger">
+                                                                <ul>
+                                                                    @foreach ($errors->all() as $error)
+                                                                        <li>{{ $error }}</li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            </div>
+                                                        @endif
+                                                    <form action="{{ route('bahan_masuk.store', $item->id) }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="bahan_id" value="{{ $item->id }}">
+                                                    
+                                                        <div class="modal-body text-start">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Jumlah Masuk</label>
+                                                                <input type="number" name="jumlah_masuk" class="form-control" placeholder="0" required>
+                                                            </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Tanggal</label>
-                        <input type="date" name="tanggal_masuk" class="form-control" value="{{ date('Y-m-d') }}" required>
-                    </div>
-                </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Tanggal</label>
+                                                                <input type="date" name="tanggal_masuk" class="form-control" value="{{ date('Y-m-d') }}" required>
+                                                            </div>
+                                                        </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Data</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <button type="submit" class="btn btn-primary">Simpan Data</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                     @empty
                                     <tr>

@@ -28,7 +28,7 @@
                     class="btn btn-light border-dark btn-sm fw-bold text-dark"
                     data-bs-toggle="modal"
                     data-bs-target="#modalKeluar">
-                    + Tambah Bahan Keluar
+                    Input Bahan Keluar
                 </button>
             </form>
         </div>
@@ -68,24 +68,21 @@
                                 <td>
                                     {{ $d->bahan->jumlah_stok + $d->jumlah_keluar }} 
                                     {{ 
-                                        $d->bahan->satuan == 'gram' ? 'G' : 
-                                        ($d->bahan->satuan == 'liter' ? 'L' : 
-                                        ($d->bahan->satuan == 'kg' ? 'Kg' : ucfirst($d->bahan->satuan))) 
+                                        $d->bahan->satuan == 'gram' ? 'g' : 
+                                        ($d->bahan->satuan) 
                                     }}
                                 </td>
                                 <td>{{ $d->jumlah_keluar }}
                                     {{ 
-                                        $d->bahan->satuan == 'gram' ? 'G' : 
-                                        ($d->bahan->satuan == 'liter' ? 'L' : 
-                                        ($d->bahan->satuan == 'kg' ? 'Kg' : ucfirst($d->bahan->satuan))) 
+                                        $d->bahan->satuan == 'gram' ? 'g' : 
+                                        ($d->bahan->satuan) 
                                     }}
                                 </td>
-                                <td>{{ $d->bahan->jumlah_stok}}
+                                <td>{{ $d->stok_sekarang}}
                                     {{ 
-                                        $d->bahan->satuan == 'gram' ? 'G' : 
-                                        ($d->bahan->satuan == 'liter' ? 'L' : 
-                                        ($d->bahan->satuan == 'kg' ? 'Kg' : ucfirst($d->bahan->satuan))) 
-                                    }} 
+                                        $d->bahan->satuan == 'gram' ? 'g' : 
+                                        ($d->bahan->satuan) 
+                                    }}
                                 </td>
                             </tr>
                             @empty
@@ -104,7 +101,7 @@
         <div class="modal-content">
 
         <div class="modal-header">
-            <h5 class="modal-title">Tambah Bahan Keluar</h5>
+            <h5 class="modal-title">Input Bahan Keluar</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
