@@ -41,7 +41,5 @@ Route::get('/bahan-keluar/create', [BahanKeluarController::class, 'create']);
 Route::post('/bahan-keluar/store', [BahanKeluarController::class, 'store'])->name('bahan_keluar.store');
 
 // laporan
-Route::get('/laporan', [LaporanController::class, 'index'])
-    ->name('laporan.index');
-Route::get('/laporan/pdf', [LaporanController::class, 'exportPDF'])
-    ->name('laporan.pdf');
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::get('/laporan/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.pdf');

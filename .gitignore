@@ -28,3 +28,6 @@ test.php
 edit-test.php
 index.test.php
 BCM-copy.php
+index.blade copy.php
+pdf.blade copy.php
+LaporanController copy.php
