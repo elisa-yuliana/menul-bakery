@@ -71,9 +71,14 @@
                             <div class="mb-3">
                                 <label for="kategori" class="form-label">Kategori</label>
                                 <select class="form-control" id="kategori" name="kategori" required>
-                                    <option value="bahan baku" {{ $bahan->kategori == 'bahan baku' ? 'selected' : '' }}>Bahan Baku</option>
-                                    <option value="bahan tambahan" {{ $bahan->kategori == 'bahan tambahan' ? 'selected' : '' }}>Bahan Tambahan</option>
+                                    <option value="Tepung" {{ $bahan->kategori == 'Tepung' ? 'selected' : '' }}>Tepung</option>
+                                    <option value="Filling" {{ $bahan->kategori == 'Filling' ? 'selected' : '' }}>Tepung</option>
+                                    <option value="Mentega" {{ $bahan->kategori == 'Mentega' ? 'selected' : '' }}>Mentega</option>
+                                    <option value="Pelengkap" {{ $bahan->kategori == 'Pelengkap' ? 'selected' : '' }}>Pelengkap</option>
+                                    <option value="Topping" {{ $bahan->kategori == 'Topping' ? 'selected' : '' }}>Topping</option>
                                     <option value="kemasan" {{ $bahan->kategori == 'kemasan' ? 'selected' : '' }}>Kemasan</option>
+                                    <option value="Susu" {{ $bahan->kategori == 'Susu' ? 'selected' : '' }}>Susu</option>
+                                    <option value="Lainnya" {{ $bahan->kategori == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                                 </select>
                             </div>
                             <div class="mb-3">

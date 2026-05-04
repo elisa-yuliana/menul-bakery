@@ -5,12 +5,12 @@
         <h1 class="mb-4">Dashboard</h1>
         <div class="row mb-4">
             <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
+                <div class="card card-custom text-dark border-primary bg-light shadow mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Total Bahan</h5>
+                        <h5 class="card-title text-primary">Total Bahan</h5>
                         <div class="d-flex align-items-baseline">
                             <h2 class="display-4 mb-0 fw-bold">{{ $bahans->count() }}</h2>
-                            <span class="ms-2 fs-5 text-white-100">Jenis</span>
+                            <span class="ms-2 fs-5 text-dark">Jenis</span>
                         </div>
                             <span class="icon-right-bottom">
                                 <img src="{{ asset('img/icons/box-seam-fill.svg') }}" class="icon-custom">
@@ -19,9 +19,9 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-white bg-success mb-3">
+                <div class="card card-custom text-dark border-success bg-light shadow mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Bahan Masuk</h5>
+                        <h5 class="card-title text-success">Bahan Masuk</h5>
                         <div class="d-flex align-items-baseline">
                             <h2 class="display-4 mb-0 fw-bold">{{ $bahanMasuk }}</h2>
                             <span class="ms-2 fs-5 text-white-100">Jenis</span>
@@ -33,9 +33,9 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-white bg-danger mb-3">
+                <div class="card card-custom text-dark border-danger bg-light shadow mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Bahan Keluar</h5>
+                        <h5 class="card-title text-danger">Bahan Keluar</h5>
                         <div class="d-flex align-items-baseline">
                             <h2 class="display-4 mb-0 fw-bold">{{ $bahanKeluar }}</h2>
                             <span class="ms-2 fs-5 text-white-100">Jenis</span>

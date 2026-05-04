@@ -13,7 +13,7 @@ class BahanMasukController extends Controller
     $bahans = Bahan::all(); 
 
     // 1. Ambil query dasar dengan relasi
-    $query = BahanMasuk::with('bahan')->latest();
+    $query = BahanMasuk::with('bahan')->oldest();
 
     // 2. Logika Filter
     if ($request->has('all')) {

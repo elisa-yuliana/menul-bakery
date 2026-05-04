@@ -13,7 +13,7 @@ class BahanKeluarController extends Controller
     $bahans = Bahan::all(); 
 
     // 1. Ambil query dasar dengan relasi
-    $query = BahanKeluar::with('bahan')->latest();
+    $query = BahanKeluar::with('bahan')->oldest();
 
     // 2. Logika Filter
     if ($request->has('all')) {
@@ -49,7 +49,7 @@ class BahanKeluarController extends Controller
     // Tentukan variabel pendukung
     $stokAwal = $bahan->jumlah_stok; // Ini adalah angka SEBELUM ditambah
     $jumlahKeluar = $request->jumlah_keluar;
-    $stokSekarang = $stokAwal + $jumlahKeluar; // Ini adalah hasil kalkulasi
+    $stokSekarang = $stokAwal - $jumlahKeluar; // Ini adalah hasil kalkulasi
 
     // 3. Simpan ke Tabel Bahan Masuk (Snapshot Data)
     BahanKeluar::create([

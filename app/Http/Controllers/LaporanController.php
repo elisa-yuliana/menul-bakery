@@ -22,6 +22,7 @@ class LaporanController extends Controller
 
         $masuk = $masukQuery->get()->map(function($item) {
             return [
+                'id' => $item->id,
                 'tanggal' => $item->tanggal_masuk,
                 'nama_bahan' => $item->bahan->nama_bahan,
                 'jumlah' => $item->jumlah_masuk,
@@ -31,12 +32,14 @@ class LaporanController extends Controller
                 'metode' => $item->bahan->metode_pembayaran,
                 'stok_sekarang' => $item->stok_sekarang, // Ambil dari master bahan
                 'stok_minimum' => $item->bahan->stok_minimum,
-                'tanggal_jatuh_tempo' => $item->bahan->tanggal_jatuh_tempo
+                'tanggal_jatuh_tempo' => $item->bahan->tanggal_jatuh_tempo,
+                'created_at' => $item->created_at
             ];
         });
 
         $keluar = $keluarQuery->get()->map(function($item) {
             return [
+                'id' => $item->id,
                 'tanggal' => $item->tanggal_keluar,
                 'nama_bahan' => $item->bahan->nama_bahan,
                 'jumlah' => $item->jumlah_keluar,
@@ -46,11 +49,12 @@ class LaporanController extends Controller
                 'metode' => $item->bahan->metode_pembayaran,
                 'stok_sekarang' => $item->stok_sekarang, // Ambil dari master bahan
                 'stok_minimum' => $item->bahan->stok_minimum,
-                'tanggal_jatuh_tempo' => $item->bahan->tanggal_jatuh_tempo
+                'tanggal_jatuh_tempo' => $item->bahan->tanggal_jatuh_tempo,
+                'created_at' => $item->created_at
             ];
         });
 
-        return collect($masuk)->concat($keluar)->sortByDesc('tanggal')->values();
+        return collect($masuk)->concat($keluar)->sortBy('created_at')->values();
     }
 
     public function index(Request $request)

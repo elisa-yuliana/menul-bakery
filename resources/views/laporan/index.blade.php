@@ -78,9 +78,6 @@
                                     <td class="text-end">Rp {{ number_format($item['harga'], 0, ',', '.') }}</td>
                                     <td class="text-center fw-bold">
                                         {{ $item['stok_sekarang'] }} 
-                                        <span style="font-weight: normal; font-size: 0.85em;">
-                                            {{ $item['satuan'] == 'gram' ? 'g' : $item['satuan'] }}
-                                        </span>
                                     </td>
                                     <td class="text-center">{{ $item['stok_minimum'] }}</td>
                                     <td>

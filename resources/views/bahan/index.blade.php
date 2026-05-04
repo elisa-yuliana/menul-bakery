@@ -10,15 +10,12 @@
                             </button>
                         </div>
                     </div>
-                    <div class="card-header text-primary d-flex justify-content-between align-items-center">
                         <div class="input-group">
                             <input type="text" id="cariBahan" class="form-control" placeholder="Ketik nama bahan untuk mencari...">
                             <span class="input-group-text bg-primary text-white">
                                 <img src="{{ ('img\icons\search.svg') }}" class=" align-items-center icon-putih">
                             </span>
                         </div>
-                    </div>
-                </div>
 
                     @if(session('success'))
                         <div class="alert alert-success m-3">
@@ -134,8 +131,6 @@
                         </div>
                     </div> 
                 </div>
-        </div> 
-    </div>
         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -157,9 +152,14 @@
                         <div class="mb-3">
                             <label class="form-label">Kategori</label>
                             <select name="kategori" class="form-select">
-                                <option value="Bahan Baku">Bahan Baku</option>
-                                <option value="Pengemasan">Pengemasan</option>
-                                <option value="Alat">Alat</option>
+                                <option value="Tepung">Tepung</option>
+                                <option value="Filling">Filling</option>
+                                <option value="Mentega">Mentega</option>
+                                <option value="Pelengkap">Pelengkap</option>
+                                <option value="Topping">Topping</option>
+                                <option value="Kemasan">Kemasan</option>
+                                <option value="Susu">Susu</option>
+                                <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -186,9 +186,9 @@
                             <input type="text" class="form-control input-harga" 
                                         id="harga_display" 
                                         data-target="harga" 
-                                        value="{{ number_format($bahan->harga, 0, ',', '.') }}">
+                                        value="{{ old('harga', 0) }}">
 
-                            <input type="hidden" name="harga" id="harga" value="{{ $bahan->harga }}">
+                            <input type="hidden" name="harga" id="harga" value="{{ old('harga', 0) }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Stok Minimum</label>
@@ -212,6 +212,8 @@
                     </div>
                 </form>
             </div>
+        </div>
+        </div>
 @endsection
         @push('scripts')
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>

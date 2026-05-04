@@ -7,15 +7,22 @@
         transition: 0.3s;
     }
 
-    .card-custom{
-        border:none;
-        border-left: 5px solid;
+    .card-custom {
+        border: none; /* Menghapus border agar shadow lebih fokus */
+        border-left: 6px solid;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 12px; /* Membuat sudut lebih halus */
     }
-        .card-body {
+    .card-custom:hover {
+        transform: translateY(-5px); /* Card seolah terangkat saat disentuh kursor */
+        transition: all 0.3s ease;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .card-body {
         position: relative;
         overflow: hidden; /* Supaya ikon tidak keluar jalur jika ukurannya besar */
     }
-
 
     .nav-link:hover {
         background-color: rgba(255, 255, 255, 0.43);
@@ -110,8 +117,8 @@
     .icon-custom {
         width: 50px;      /* Sesuaikan ukuran ikon */
         height: auto;
-        opacity: 0.5;     /* Opsional: agar terlihat seperti watermark */
-        filter: brightness(0) invert(1);
+        opacity: 0.1;     /* Opsional: agar terlihat seperti watermark */
+        filter: brightness(-1) invert(1);
     }
     /* Container Utama Header */
     .header-wrapper {
