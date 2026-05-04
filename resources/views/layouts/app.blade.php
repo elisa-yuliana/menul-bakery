@@ -13,7 +13,27 @@
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block navbar sidebar min-vh-100 p-3">
-                <h4 class="text-white">Menul Bakery</h4>
+                <div class="container-fluid d-flex justify-content-between align-items-center">
+                    <!-- Judul di sebelah kiri -->
+                    <h4 class="text-white mb-0">Menul Bakery</h4>
+
+                    <!-- Container ikon di sebelah kanan -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item position-relative">
+                            <a class="nav-link" href="{{ route('dashboard.index') }}">
+                                {{-- Perbaikan kurung pada asset dan penghapusan spasi/backslash extra --}}
+                                <img src="{{ asset('img/icons/bell-fill.svg') }}" class="icon-putih" style="width: 24px;">
+                                
+                                @if($totalNotifikasi > 0)
+                                    <span class="badge badge-danger" 
+                                        style="position: absolute; top: -5px; right: -5px; font-size: 10px; border-radius: 50%;">
+                                        {{ $totalNotifikasi }}
+                                    </span>
+                                @endif
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <hr class="text-white">
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2">

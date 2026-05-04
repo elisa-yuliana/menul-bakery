@@ -8,7 +8,9 @@ class BahanMasuk extends Model
 {
 protected $fillable = [
     'bahan_id',
+    'stok_awal',
     'jumlah_masuk',
+    'stok_sekarang',
     'tanggal_masuk',
 ];
 
