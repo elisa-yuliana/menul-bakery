@@ -162,3 +162,17 @@
         background-color: white;
         color: #333;
     }
+    .search-container {
+    margin-top: 5px;      /* Menambah jarak ke bawah dari judul */
+    margin-left: 10px;   /* Menambah jarak ke tabel di bawahnya */
+    max-width: 1500px;      /* Membuat ukuran lebih kecil (lebar dibatasi) */
+    display: flex;         /* Menjaga input dan tombol tetap sejajar */
+}
+
+.search-container input {
+    padding: 8px 12px;     /* Membuat input lebih ramping (kecil) */
+    font-size: 14px;       /* Ukuran teks lebih kecil */
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    width: 100%;
+}

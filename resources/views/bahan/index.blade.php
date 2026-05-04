@@ -10,7 +10,7 @@
                             </button>
                         </div>
                     </div>
-                        <div class="input-group">
+                        <div class="search-container">
                             <input type="text" id="cariBahan" class="form-control" placeholder="Ketik nama bahan untuk mencari...">
                             <span class="input-group-text bg-primary text-white">
                                 <img src="{{ ('img\icons\search.svg') }}" class=" align-items-center icon-putih">
