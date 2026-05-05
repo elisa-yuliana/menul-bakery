@@ -71,7 +71,17 @@
                                     <tr style="font-size: 0.9rem;">
                                         <td class="ps-3 align-middle">{{ $item->nama_bahan }}</td>
                                         <td class="text-center align-middle">
-                                            <span class="badge bg-danger">{{ ($item->tanggal_jatuh_tempo)->format('Y-m-d') }}</span>
+                                            @php
+                                                $tglTempo = \Carbon\Carbon::parse($item->tanggal_jatuh_tempo);
+                                                $isTelat = $tglTempo->isPast() && !$tglTempo->isToday();
+                                            @endphp
+                                            
+                                            <span class="badge {{ $isTelat ? 'bg-danger' : 'bg-warning text-dark' }}">
+                                                {{ $tglTempo->format('d-m-Y') }}
+                                                @if($isTelat)
+                                                    <strong>(TELAT)</strong>
+                                                @endif
+                                            </span>
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route('bahan.edit', $item->id) }}" class="btn btn-warning btn-sm p-0 px-2 text-white">

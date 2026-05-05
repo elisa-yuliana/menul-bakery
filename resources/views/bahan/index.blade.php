@@ -10,7 +10,7 @@
                             </button>
                         </div>
                     </div>
-                        <div class="input-group">
+                        <div class="search-container">
                             <input type="text" id="cariBahan" class="form-control" placeholder="Ketik nama bahan untuk mencari...">
                             <span class="input-group-text bg-primary text-white">
                                 <img src="{{ ('img\icons\search.svg') }}" class=" align-items-center icon-putih">
@@ -49,19 +49,33 @@
 
                                     @forelse($bahans as $bahan)
                                         @php
-                                            // 1. Perbaikan: Tambahkan '$bahan->' sebelum stok_minimum
+                                            $hariIni = \Carbon\Carbon::today();
+                                            $besok = \Carbon\Carbon::tomorrow()->toDateString();
+                                            
+                                            // 1. Cek Stok Minim (Prioritas Merah)
                                             $infoMinim = ($bahan->jumlah_stok <= $bahan->stok_minimum);
 
-                                            // 2. Perbaikan: Cek apakah tanggal_jatuh_tempo ada sebelum menjalankan toDateString()
-                                            $infoTempo = ($bahan->metode_pembayaran == 'tempo' && 
-                                                        $bahan->tanggal_jatuh_tempo && 
-                                                        $bahan->tanggal_jatuh_tempo->toDateString() == $besok);
+                                            // 2. Logika Jatuh Tempo
+                                            $isTelat = false;
+                                            $isBesok = false;
 
-                                            // 3. Tentukan class baris (Danger/Merah lebih prioritas daripada Warning/Kuning)
+                                            if ($bahan->metode_pembayaran == 'tempo' && $bahan->tanggal_jatuh_tempo) {
+                                                $tglTempo = \Carbon\Carbon::parse($bahan->tanggal_jatuh_tempo);
+                                                
+                                                // Cek apakah sudah lewat hari ini (Telat)
+                                                $isTelat = $tglTempo->isPast() && !$tglTempo->isToday();
+                                                
+                                                // Cek apakah jatuh temponya besok
+                                                $isBesok = $tglTempo->toDateString() == $besok;
+                                            }
+
+                                            // 3. Tentukan class baris
                                             $rowClass = '';
-                                            if ($infoMinim) {
-                                                $rowClass = 'table-danger';
-                                            } elseif ($infoTempo) {
+                                            if ($infoMinim ) {
+                                                $rowClass = 'table-danger'; // Merah untuk Stok Kritis ATAU Telat Bayar
+                                            } elseif ($isBesok) {
+                                                $rowClass = 'table-warning'; // Kuning untuk Jatuh Tempo Besok
+                                            } elseif ($isTelat) {
                                                 $rowClass = 'table-warning';
                                             }
                                         @endphp
@@ -91,7 +105,13 @@
                                                     {{ $bahan->metode_pembayaran }}
                                                 </span>
                                             </td>
-                                            <td>{{ $bahan->tanggal_jatuh_tempo ? $bahan->tanggal_jatuh_tempo->format('d-m-Y') : '-' }}</td>
+                                           <td>
+                                                @if($isTelat)
+                                                    <b class="text-danger">{{ $bahan->tanggal_jatuh_tempo->format('d-m-Y') }} (TELAT)</b>
+                                                @else
+                                                    {{ $bahan->tanggal_jatuh_tempo ? $bahan->tanggal_jatuh_tempo->format('d-m-Y') : '-' }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{ route('bahan.edit', $bahan->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                                 <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalHapus{{ $bahan->id }}">

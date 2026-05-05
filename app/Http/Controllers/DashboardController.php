@@ -17,10 +17,11 @@ class DashboardController extends Controller
         $bahanKeluar = BahanKeluar::all();
         $totalBahan = Bahan::count();
         $besok = Carbon::now()->addDay()->toDatestring();
-        $datajatuhtempo = Bahan::where('metode_pembayaran','tempo')
-                                ->whereDate('tanggal_jatuh_tempo',$besok)
-                                ->get();
-        $stoklimit = Bahan::whereColumn('jumlah_stok','<=','stok_minimum')->get(); 
+        // Mengambil data jatuh tempo (termasuk yang sudah lewat/telat)
+        $datajatuhtempo = Bahan::jatuhTempoKritis()->orderBy('tanggal_jatuh_tempo', 'asc')->get();
+
+        // Mengambil data stok limit
+        $stoklimit = Bahan::whereColumn('jumlah_stok', '<', 'stok_minimum')->get();
 
         $hariIni = Carbon::today();
 
