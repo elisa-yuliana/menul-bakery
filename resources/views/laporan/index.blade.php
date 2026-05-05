@@ -54,7 +54,7 @@
                                         <th>No</th>
                                         <th>Tanggal</th>
                                         <th>Nama Bahan</th>
-                                        <th>Jenis</th>
+                                        <th>Status</th>
                                         <th class="text-center">Jumlah</th>
                                         <th class="text-end">Harga</th>
                                         <th class="text-center">Stok Sisa</th>
