@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahan') ? 'bg-secondary active' : '' }}" href="{{ route('bahan.index') }}">
+                        <a class="nav-link text-white {{ request()->is('bahan') ? ' active' : '' }}" href="{{ route('bahan.index') }}">
                             <img src="{{ asset('img\icons\cart-fill.svg') }}" class="me-2 icon-putih"> Bahan
                         </a>
                     </li>
@@ -57,7 +57,7 @@
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('laporan') ? 'bg-secondary active' : '' }}" href="{{ route('laporan.index') }}">
+                        <a class="nav-link text-white {{ request()->is('laporan') ? ' active' : '' }}" href="{{ route('laporan.index') }}">
                             <img src="{{ asset('img\icons\file-earmark-bar-graph-fill.svg') }}" class="me-2 icon-putih"> Laporan
                         </a>
                     </li>
