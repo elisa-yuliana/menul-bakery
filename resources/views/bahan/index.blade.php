@@ -50,7 +50,7 @@
                                     @forelse($bahans as $bahan)
                                         @php
                                             $hariIni = \Carbon\Carbon::today();
-                                            $besok = \Carbon\Carbon::tomorrow()->toDateString();
+                                            $hSeminggu = \Carbon\Carbon::now()->addDays(7)->toDateString();
                                             
                                             // 1. Cek Stok Minim (Prioritas Merah)
                                             $infoMinim = ($bahan->jumlah_stok <= $bahan->stok_minimum);
@@ -65,8 +65,8 @@
                                                 // Cek apakah sudah lewat hari ini (Telat)
                                                 $isTelat = $tglTempo->isPast() && !$tglTempo->isToday();
                                                 
-                                                // Cek apakah jatuh temponya besok
-                                                $isBesok = $tglTempo->toDateString() == $besok;
+                                                // Cek apakah jatuh temponya hSeminggu
+                                                $isBesok = $tglTempo->toDateString() == $hSeminggu;
                                             }
 
                                             // 3. Tentukan class baris
