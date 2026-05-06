@@ -55,7 +55,7 @@
                 <div class="col-md-6">
                     <div class="card shadow-sm border-0">
                         <div class="card-header text-center fw-bold text-white bg-warning mb-0">
-                            Bahan Jatuh Tempo (Besok)
+                            Bahan Jatuh Tempo (Seminggu)
                         </div>
                         <div class="card-body p-0">
                             <table class="table table-sm table-striped mb-0">
