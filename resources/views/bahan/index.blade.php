@@ -1,57 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menul Bakery</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
+@extends('layouts.app')
 
-<body class="bg-light">
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block navbar sidebar min-vh-100 p-3">
-                <h4 class="text-white">Menul Bakery</h4>
-                <hr class="text-white">
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('/') ? : '' }}" href="{{ route('dashboard.index') }}">
-                            <img src="{{ asset('img\icons\house-fill.svg') }}" class="me-2 icon-putih"> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahan') ? 'bg-secondary active' : '' }}" href="{{ route('bahan.index') }}">
-                            <img src="{{ asset('img\icons\cart-fill.svg') }}" class="me-2 icon-putih"> Bahan
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahanMasuk') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_masuk.index') }}">
-                            <img src="{{ asset('img\icons\cart-plus-fill.svg') }}" class="me-2 icon-putih"> Bahan Masuk
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahanKeluar') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_keluar.index') }}">
-                            <img src="{{ asset('img\icons\cart-dash-fill.svg') }}" class="me-2 icon-putih"> Bahan Keluar
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('laporan') ? 'bg-secondary active' : '' }}" href="{{ route('laporan.index') }}">
-                            <img src="{{ asset('img\icons\file-earmark-bar-graph-fill.svg') }}" class="me-2 icon-putih"> Laporan
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-    <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+@section('content')
                 <div class="card shadow">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <div class="card-header text-primary d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Daftar Stok Bahan Roti</h5>
                         <div>
-                            <button type="button" class="btn btn-text btn-light btn-sm " data-bs-toggle="modal" data-bs-target="#modalTambah">
+                            <button type="button" class="btn btn-primary btn-sm fw-bold text-light " data-bs-toggle="modal" data-bs-target="#modalTambah">
                                 + Tambah Bahan
                             </button>
                         </div>
                     </div>
+                        <div class="search-container">
+                            <input type="text" id="cariBahan" class="form-control" placeholder="Ketik nama bahan untuk mencari...">
+                            <span class="input-group-text bg-primary text-white">
+                                <img src="{{ ('img\icons\search.svg') }}" class=" align-items-center icon-putih">
+                            </span>
+                        </div>
 
                     @if(session('success'))
                         <div class="alert alert-success m-3">
@@ -77,41 +41,116 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $No = 1; @endphp
+                                    @php 
+                                        $No = 1; 
+                                        // Ambil tanggal besok untuk pembanding
+                                        $besok = \Carbon\Carbon::now()->addDay()->toDateString();
+                                    @endphp
 
                                     @forelse($bahans as $bahan)
-                                    <tr>
-                                        <td>{{ $No++ }}</td>
-                                        <td>{{ $bahan->nama_bahan }}</td>
-                                        <td>{{ $bahan->jenis_bahan }}</td>
-                                        <td>{{ $bahan->kategori }}</td>
-                                        <td>{{ $bahan->jumlah_stok }} {{ $bahan->satuan }} </td>
-                                        <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
-                                        <td>{{ $bahan->stok_minimum }}</td>
-                                        <td>{{ $bahan->metode_pembayaran }}</td>
-                                        <td>{{ $bahan->tanggal_jatuh_tempo ? $bahan->tanggal_jatuh_tempo->format('Y-m-d') : '-' }}</td>
-                                        <td>
-                                            <a href="{{ route('bahan.edit', $bahan->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                            <form action="{{ route('bahan.destroy', $bahan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus bahan ini?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                        @php
+                                            $hariIni = \Carbon\Carbon::today();
+                                            $besok = \Carbon\Carbon::tomorrow()->toDateString();
+                                            
+                                            // 1. Cek Stok Minim (Prioritas Merah)
+                                            $infoMinim = ($bahan->jumlah_stok <= $bahan->stok_minimum);
+
+                                            // 2. Logika Jatuh Tempo
+                                            $isTelat = false;
+                                            $isBesok = false;
+
+                                            if ($bahan->metode_pembayaran == 'tempo' && $bahan->tanggal_jatuh_tempo) {
+                                                $tglTempo = \Carbon\Carbon::parse($bahan->tanggal_jatuh_tempo);
+                                                
+                                                // Cek apakah sudah lewat hari ini (Telat)
+                                                $isTelat = $tglTempo->isPast() && !$tglTempo->isToday();
+                                                
+                                                // Cek apakah jatuh temponya besok
+                                                $isBesok = $tglTempo->toDateString() == $besok;
+                                            }
+
+                                            // 3. Tentukan class baris
+                                            $rowClass = '';
+                                            if ($infoMinim ) {
+                                                $rowClass = 'table-danger'; // Merah untuk Stok Kritis ATAU Telat Bayar
+                                            } elseif ($isBesok) {
+                                                $rowClass = 'table-warning'; // Kuning untuk Jatuh Tempo Besok
+                                            } elseif ($isTelat) {
+                                                $rowClass = 'table-warning';
+                                            }
+                                        @endphp
+
+                                        <tr class="{{ $rowClass }}">
+                                            <td>{{ $No++ }}</td>
+                                            <td>{{ $bahan->nama_bahan }}</td>
+                                            <td>{{ $bahan->jenis_bahan }}</td>
+                                            <td>{{ $bahan->kategori }}</td>
+                                            <td>
+                                                {{ $bahan->jumlah_stok }}
+                                                {{ 
+                                                    $bahan->satuan == 'gram' ? 'g' : 
+                                                    ($bahan->satuan) 
+                                                }}
+                                            </td>
+                                            <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
+                                            <td>{{ $bahan->stok_minimum }}
+                                                {{ 
+                                                    $bahan->satuan == 'gram' ? 'g' : 
+                                                    ($bahan->satuan) 
+                                                }}
+                                            </td>
+                                            <td>
+                                                {{-- Tambah sedikit badge agar lebih rapi --}}
+                                                <span class="badge {{ $bahan->metode_pembayaran == 'tempo' ? 'bg-danger' : 'bg-success' }}">
+                                                    {{ $bahan->metode_pembayaran }}
+                                                </span>
+                                            </td>
+                                           <td>
+                                                @if($isTelat)
+                                                    <b class="text-danger">{{ $bahan->tanggal_jatuh_tempo->format('d-m-Y') }} (TELAT)</b>
+                                                @else
+                                                    {{ $bahan->tanggal_jatuh_tempo ? $bahan->tanggal_jatuh_tempo->format('d-m-Y') : '-' }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('bahan.edit', $bahan->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalHapus{{ $bahan->id }}">
+                                                    Hapus
+                                                </button>
+                                            </td>
+                                            <div class="modal fade" id="modalHapus{{ $bahan->id }}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger text-white">
+                                                            <h5 class="modal-title">Konfirmasi Hapus</h5>
+                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <p>Apakah Anda yakin ingin menghapus bahan <strong>{{ $bahan->nama_bahan }}</strong>?</p>
+                                                            <p class="text-muted small">Tindakan ini tidak dapat dibatalkan dan akan menghapus histori terkait bahan ini.</p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <form action="{{ route('bahan.destroy', $bahan->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-success">Ya, Hapus Data</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="9" class="text-center">Tidak ada data bahan.</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="10" class="text-center">Tidak ada data bahan.</td>
+                                        </tr>
                                     @endforelse
                                 </tbody>
                             </table>
                         </div>
                     </div> 
                 </div>
-             </main>
-        </div> 
-    </div>
         <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="modalTambahLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -133,9 +172,14 @@
                         <div class="mb-3">
                             <label class="form-label">Kategori</label>
                             <select name="kategori" class="form-select">
-                                <option value="Bahan Baku">Bahan Baku</option>
-                                <option value="Pengemasan">Pengemasan</option>
-                                <option value="Alat">Alat</option>
+                                <option value="Tepung">Tepung</option>
+                                <option value="Filling">Filling</option>
+                                <option value="Mentega">Mentega</option>
+                                <option value="Pelengkap">Pelengkap</option>
+                                <option value="Topping">Topping</option>
+                                <option value="Kemasan">Kemasan</option>
+                                <option value="Susu">Susu</option>
+                                <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -145,15 +189,15 @@
                         <div class="mb-3">
                             <label class="form-label">Satuan</label>
                             <select name="satuan" class="form-select">
-                                <option value="kg">kg</option>
-                                <option value="gram">gram</option>
-                                <option value="sak">sak</option>
-                                <option value="kantong">kantong</option>
-                                <option value="pouch">pouch</option>
-                                <option value="botol">botol</option>
-                                <option value="sisir">sisir</option>
-                                <option value="bungkus">bungkus</option>
-                                <option value="lembar">lembar</option>
+                                <option value="kg">kg(kilogram)</option>
+                                <option value="g">g(gram)</option>
+                                <option value="Sak">Sak</option>
+                                <option value="Kantong">Kantong</option>
+                                <option value="Pouch">Pouch</option>
+                                <option value="Botol">Botol</option>
+                                <option value="Sisir">Sisir</option>
+                                <option value="Bungkus">Bungkus</option>
+                                <option value="Lembar">Lembar</option>
                                 <option value="liter">liter</option>
                             </select>
                         </div>
@@ -162,9 +206,9 @@
                             <input type="text" class="form-control input-harga" 
                                         id="harga_display" 
                                         data-target="harga" 
-                                        value="{{ number_format($bahan->harga, 0, ',', '.') }}">
+                                        value="{{ old('harga', 0) }}">
 
-                            <input type="hidden" name="harga" id="harga" value="{{ $bahan->harga }}">
+                            <input type="hidden" name="harga" id="harga" value="{{ old('harga', 0) }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Stok Minimum</label>
@@ -188,8 +232,14 @@
                     </div>
                 </form>
             </div>
+        </div>
+        </div>
+@endsection
+        @push('scripts')
         <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('js/format-rupiah.js') }}"></script>
+        <script src="{{ asset('js/search-bahan.js') }}"></script>
+        @endpush
     </body>
 </html>
 
