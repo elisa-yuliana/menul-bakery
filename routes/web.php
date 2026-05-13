@@ -6,40 +6,62 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BahanMasukController;
 use App\Http\Controllers\BahanKeluarController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\AuthController;
 
-// dashboard
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+// --- GUEST: Hanya bisa diakses jika BELUM login ---
+Route::middleware('guest')->group(function () {
+    // Login dan Register STAFF
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 
-// bahan
-Route::get('/bahan', [BahanController::class, 'index'])->name('bahan.index');
-Route::get('/bahan/create', [BahanController::class, 'create'])->name('bahan.create');
-Route::post('/bahan/store', [BahanController::class, 'store'])->name('bahan.store');
-Route::get('/bahan/{id}/edit', [BahanController::class, 'edit'])->name('bahan.edit');
-Route::put('/bahan/{id}', [BahanController::class, 'update'])->name('bahan.update');
-Route::post('/bahan/{id}/delete', [BahanController::class, 'destroy'])->name('bahan.destroy');
-// tambah bahan
-Route::get('/bahan/create', [BahanController::class, 'create']);
-Route::post('/bahan/store', [BahanController::class, 'store'])->name('bahan.store');
-// edit bahan (FORM)
-Route::get('/bahan/{id}/edit', [BahanController::class, 'edit'])->name('bahan.edit');
-// update bahan (INI YANG FIX)
-Route::put('/bahan/{id}', [BahanController::class, 'update'])->name('bahan.update');
-//bahan lunas
-Route::post('/bahan/lunas/{id}', [DashboardController::class, 'tandaiLunas'])->name('bahan.lunas');
+    // Login dan Register ADMIN
+    Route::get('/admin-login', [AuthController::class, 'showAdminLoginForm'])->name('admin.login');
+    Route::post('/admin-login', [AuthController::class, 'adminLogin'])->name('admin.login.submit');
+    Route::get('/admin-register', [AuthController::class, 'showAdminRegisterForm'])->name('admin.register');
+    Route::post('/admin-register', [AuthController::class, 'adminRegister'])->name('admin.register.submit');
+});
 
-// delete bahan
-Route::delete('/bahan/{id}/delete', [BahanController::class, 'destroy'])->name('bahan.destroy');
+// --- AUTH: Harus login untuk akses fitur ini ---
+Route::middleware('auth')->group(function () {
+    
+    // Logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// bahan masuk
-Route::get('/bahan-masuk', [BahanMasukController::class,'index'])->name('bahan_masuk.index');
-Route::get('/bahan-masuk/create', [BahanMasukController::class, 'create']);
-Route::post('/bahan-masuk/store', [BahanMasukController::class, 'store'])->name('bahan_masuk.store');
+    // Dashboard (Home)
+    // Saya arahkan '/' langsung ke dashboard jika sudah login
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard', [DashboardController::class, 'index']); 
 
-// bahan keluar
-Route::get('/bahan-keluar', [BahanKeluarController::class,'index'])->name('bahan_keluar.index');
-Route::get('/bahan-keluar/create', [BahanKeluarController::class, 'create']);
-Route::post('/bahan-keluar/store', [BahanKeluarController::class, 'store'])->name('bahan_keluar.store');
+    // Fitur Bahan (Sama-sama bisa diakses Staff & Admin)
+    Route::prefix('bahan')->name('bahan.')->group(function() {
+        Route::get('/', [BahanController::class, 'index'])->name('index');
+        Route::post('/store', [BahanController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [BahanController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [BahanController::class, 'update'])->name('update');
+        Route::delete('/{id}', [BahanController::class, 'destroy'])->name('destroy');
+        Route::post('/lunas/{id}', [DashboardController::class, 'tandaiLunas'])->name('lunas');
+    });
 
-// laporan
-Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
-Route::get('/laporan/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.pdf');
+    // Bahan Masuk
+    Route::get('/bahan-masuk', [BahanMasukController::class,'index'])->name('bahan_masuk.index');
+    Route::post('/bahan-masuk/store', [BahanMasukController::class, 'store'])->name('bahan_masuk.store');
+
+    // Bahan Keluar
+    Route::get('/bahan-keluar', [BahanKeluarController::class,'index'])->name('bahan_keluar.index');
+    Route::post('/bahan-keluar/store', [BahanKeluarController::class, 'store'])->name('bahan_keluar.store');
+
+    // Laporan
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/pdf', [LaporanController::class, 'exportPDF'])->name('laporan.pdf');
+
+    // Fitur Khusus ADMIN (Jika ingin tambah list user nanti)
+    Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/kelola-staff', [AuthController::class, 'index'])->name('admin.users.index');
+    Route::get('/admin/tambah-staff', [AuthController::class, 'showRegisterForm'])->name('admin.staff.create');
+    
+    // Proses hapus staff
+    Route::delete('/admin/kelola-staff/{id}', [AuthController::class, 'destroyStaff'])->name('admin.users.destroy');
+    });
+});

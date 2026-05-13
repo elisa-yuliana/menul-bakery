@@ -29,11 +29,11 @@ class Bahan extends Model
         return $this->hasMany(BahanKeluar::class);
     }
     public function scopeJatuhTempoKritis($query, $hseminggu)
-{
+    {
     // Mengambil data yang tidak null, tanggalnya <= besok, dan statusnya bukan lunas
     return $query->whereNotNull('tanggal_jatuh_tempo')
                  ->where('tanggal_jatuh_tempo', '<=', $hseminggu)
-                 ->where('metode_pembayaran', '!=', 'cash'); // Sesuaikan dengan logika 'lunas' Anda
-}
+                 ->where('metode_pembayaran', '!=', 'cash');
+    }
 
 }

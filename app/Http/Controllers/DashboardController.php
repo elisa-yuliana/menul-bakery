@@ -18,18 +18,12 @@ class DashboardController extends Controller
         $totalBahan = Bahan::count();
         $hariIni = Carbon::today();
         $hseminggu = Carbon::now()->addDays(7)->toDateString();
-        // Mengambil data jatuh tempo (termasuk yang sudah lewat/telat)
         $datajatuhtempo = Bahan::jatuhTempoKritis($hseminggu)->orderBy('tanggal_jatuh_tempo', 'asc')->get();
-
-        // Mengambil data stok limit
         $stoklimit = Bahan::whereColumn('jumlah_stok', '<=', 'stok_minimum')->get();
-
-        // Menghitung berapa jenis bahan yang masuk hari ini
         $bahanMasuk = BahanMasuk::whereDate('tanggal_masuk', $hariIni)
             ->distinct('bahan_id')
             ->count('bahan_id');
 
-        // Menghitung berapa jenis bahan yang keluar hari ini
         $bahanKeluar = BahanKeluar::whereDate('tanggal_keluar', $hariIni)
             ->distinct('bahan_id')
             ->count('bahan_id');
