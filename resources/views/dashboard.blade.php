@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- Bagian yang dilihat semua orang (Staff & Admin) -->
+<div class="d-flex align-items-center justify-content-end p-3" style="border-bottom: 2px solid #e3e6f0;">
+    <div class="text-end me-3">
+        <p class="mb-0 small font-weight-bold text-dark">{{ Auth::user()->name }}</p>
+        <small class="text-muted" style="font-size: 10px;">{{ strtoupper(Auth::user()->role) }}</small>
+    </div>
+    <div class="profile-picture">
+        <img src="{{ asset('img/icons/person-circle.svg') }}" width="35" height="35" class="rounded-circle">
+    </div>
+</div>
     <div class="container mt-4">
         <h1 class="mb-4">Dashboard</h1>
         <div class="row mb-4">

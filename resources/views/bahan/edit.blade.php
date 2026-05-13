@@ -72,7 +72,7 @@
                                 <label for="kategori" class="form-label">Kategori</label>
                                 <select class="form-control" id="kategori" name="kategori" required>
                                     <option value="Tepung" {{ $bahan->kategori == 'Tepung' ? 'selected' : '' }}>Tepung</option>
-                                    <option value="Filling" {{ $bahan->kategori == 'Filling' ? 'selected' : '' }}>Tepung</option>
+                                    <option value="Filling" {{ $bahan->kategori == 'Filling' ? 'selected' : '' }}>Filling</option>
                                     <option value="Mentega" {{ $bahan->kategori == 'Mentega' ? 'selected' : '' }}>Mentega</option>
                                     <option value="Pelengkap" {{ $bahan->kategori == 'Pelengkap' ? 'selected' : '' }}>Pelengkap</option>
                                     <option value="Topping" {{ $bahan->kategori == 'Topping' ? 'selected' : '' }}>Topping</option>

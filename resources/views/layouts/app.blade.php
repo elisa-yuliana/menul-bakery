@@ -37,7 +37,7 @@
                 <hr class="text-white">
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('/') ? : '' }}" href="{{ route('dashboard.index') }}">
+                        <a class="nav-link text-white {{ request()->is('/') ? ' active' : '' }}" href="{{ route('dashboard.index') }}">
                             <img src="{{ asset('img\icons\house-fill.svg') }}" class="me-2 icon-putih"> Dashboard
                         </a>
                     </li>
@@ -47,19 +47,35 @@
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahanMasuk') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_masuk.index') }}">
+                        <a class="nav-link text-white {{ request()->is('bahanMasuk') ? ' active' : '' }}" href="{{ route('bahan_masuk.index') }}">
                             <img src="{{ asset('img\icons\cart-plus-fill.svg') }}" class="me-2 icon-putih"> Bahan Masuk
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('bahanKeluar') ? 'bg-secondary active' : '' }}" href="{{ route('bahan_keluar.index') }}">
+                        <a class="nav-link text-white {{ request()->is('bahanKeluar') ? ' active' : '' }}" href="{{ route('bahan_keluar.index') }}">
                             <img src="{{ asset('img\icons\cart-dash-fill.svg') }}" class="me-2 icon-putih"> Bahan Keluar
                         </a>
                     </li>
+                    @if (auth()->user()->role === 'admin')
                     <li class="nav-item mb-2">
                         <a class="nav-link text-white {{ request()->is('laporan') ? ' active' : '' }}" href="{{ route('laporan.index') }}">
                             <img src="{{ asset('img\icons\file-earmark-bar-graph-fill.svg') }}" class="me-2 icon-putih"> Laporan
                         </a>
+                    </li>
+
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('admin/kelola-staff') ? ' active' : '' }}" href="{{ route('admin.users.index') }}">
+                            <img src="{{ asset('img\icons\person-circle.svg') }}" class="me-2 icon-putih"> User Management
+                        </a>
+                    </li>
+                    @endif
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-white {{ request()->is('logout') ? ' active' : '' }}" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <img src="{{ asset('img\icons\box-arrow-left.svg') }}" class="me-2 icon-putih"> logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </li>
                 </ul>
             </nav>

@@ -31,3 +31,4 @@ BCM-copy.php
 index.blade copy.php
 pdf.blade copy.php
 LaporanController copy.php
+bahan\create.blade.php
