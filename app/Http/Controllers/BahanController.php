@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bahan;
+use Carbon\Carbon;
 
 class BahanController extends Controller
 {
     public function index()
     {
         $bahans = Bahan::all();
-        return view('bahan.index', compact('bahans'));
+        $hariIni = Carbon::today();
+        $hseminggu = Carbon::now()->addDays(7)->toDateString();
+        $datajatuhtempo = Bahan::jatuhTempoKritis($hseminggu)->orderBy('tanggal_jatuh_tempo', 'asc')->get();
+        return view('bahan.index', compact('bahans','datajatuhtempo'));
         
     }
     public function store(Request $request)

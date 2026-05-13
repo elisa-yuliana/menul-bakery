@@ -8,20 +8,20 @@
     }
 
     .card-custom {
-        border: none; /* Menghapus border agar shadow lebih fokus */
+        border: none;
         border-left: 6px solid;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 12px; /* Membuat sudut lebih halus */
+        border-radius: 12px;
     }
     .card-custom:hover {
-        transform: translateY(-5px); /* Card seolah terangkat saat disentuh kursor */
+        transform: translateY(-5px);
         transition: all 0.3s ease;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
     }
     
     .card-body {
         position: relative;
-        overflow: hidden; /* Supaya ikon tidak keluar jalur jika ukurannya besar */
+        overflow: hidden;
     }
 
     .nav-link:hover {
@@ -91,49 +91,44 @@
         border: none;
         border-radius: 4px;
     }
+
     .sidebar a svg {
-    fill: #f1c40f; /* Warna kuning emas */
-    transition: fill 0.3s; /* Animasi perubahan warna */
+        fill: #f1c40f;
+        transition: fill 0.3s;
     }
 
     .sidebar a:hover svg {
-    fill: white; /* Berubah jadi putih saat kursor di atas menu */
+        fill: white;
     }
-    /* Mengatur posisi ikon ke pojok kanan bawah */
+
     .icon-right-bottom {
         position: absolute;
-        right: 15px;      /* Jarak dari kanan */
-        bottom: 15px;     /* Jarak dari bawah */
-        line-height: 0;   /* Menghilangkan space kosong di bawah gambar */
-    }
-    .icon-merah {
-    /* Filter ini akan merubah warna hitam menjadi merah */
-    filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+        right: 15px;
+        bottom: 15px;
+        line-height: 0;
     }
     .icon-putih {
-    /* Filter ini akan merubah warna hitam menjadi putih */
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(200%) contrast(100%);
     }
     .icon-custom {
-        width: 50px;      /* Sesuaikan ukuran ikon */
+        width: 50px;
         height: auto;
-        opacity: 0.1;     /* Opsional: agar terlihat seperti watermark */
+        opacity: 0.1;
         filter: brightness(-1) invert(1);
     }
-    /* Container Utama Header */
+
     .header-wrapper {
         display: flex;
         justify-content: space-between;
-        align-items: center; /* Menyeimbangkan judul dengan grup tombol */
+        align-items: center;
     }
 
-    /* Grup Tombol dan Filter */
     .header-actions {
         margin-top: 0px;
         margin-bottom: 0px;
         display: flex;
-        align-items: center; /* Kunci utama agar semua elemen sejajar vertikal */
-        gap: 10px; /* Jarak antar elemen */
+        align-items: center;
+        gap: 10px;
     }
 
     .filter-form {
@@ -142,37 +137,30 @@
         gap: 5px;
     }
 
-    /* Samakan Tinggi Semua Elemen (35px sebagai standar) */
     .input-date, 
-    .btn-today 
+    .btn-today,
     .btn-add {
         height: 35px;
         padding: 0 12px;
         font-size: 14px;
         display: inline-flex;
-        align-items: center; /* Menengahkan teks di dalam tombol secara vertikal */
+        align-items: center;
         border-radius: 5px;
         border: 1px solid #ddd;
-        box-sizing: border-box; /* Memastikan padding tidak merusak ukuran tinggi */
+        box-sizing: border-box;
         text-decoration: none;
     }
-
-    /* Styling Khusus Input Date */
-    .input-date {
-        background-color: white;
-        color: #333;
-    }
     .search-container {
-    margin-top: 5px;      /* Menambah jarak ke bawah dari judul */
-    margin-left: 10px;   /* Menambah jarak ke tabel di bawahnya */
-    max-width: 1500px;      /* Membuat ukuran lebih kecil (lebar dibatasi) */
-    display: flex;         /* Menjaga input dan tombol tetap sejajar */
-}
+        margin-top: 5px;
+        margin-left: 10px;
+        max-width: 1500px;
+        display: flex;
+    }
 
-.search-container input {
-    padding: 8px 12px;     /* Membuat input lebih ramping (kecil) */
-    font-size: 14px;       /* Ukuran teks lebih kecil */
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-    width: 100%;
-}
+    .search-container input {
+        padding: 8px 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px 0 0 4px;
+        width: 100%;
+    }
