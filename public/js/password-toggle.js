@@ -1,19 +1,24 @@
 $(document).ready(function() {
-    // Simpan path ke variabel agar kode lebih bersih
     const eyeOpen = "/img/icons/eye.svg";
     const eyeClosed = "/img/icons/eye-slash.svg";
 
-    $('#togglePassword').on('click', function() {
-        const passwordField = $('#password');
-        const eyeIcon = $('#eyeIcon');
-        
-        // Cek tipe input saat ini
-        if (passwordField.attr('type') === 'password') {
-            passwordField.attr('type', 'text');
-            eyeIcon.attr('src', eyeClosed); // Ganti ke ikon mata tertutup
-        } else {
-            passwordField.attr('type', 'password');
-            eyeIcon.attr('src', eyeOpen); // Ganti ke ikon mata terbuka
-        }
-    });
+    // Fungsi reusable untuk toggle password
+    function setupToggle(buttonId, inputId, iconId) {
+        $(`#${buttonId}`).on('click', function() {
+            const field = $(`#${inputId}`);
+            const icon = $(`#${iconId}`);
+            
+            if (field.attr('type') === 'password') {
+                field.attr('type', 'text');
+                icon.attr('src', eyeClosed);
+            } else {
+                field.attr('type', 'password');
+                icon.attr('src', eyeOpen);
+            }
+        });
+    }
+
+    // Terapkan ke kedua kolom
+    setupToggle('togglePassword', 'password', 'eyeIcon');
+    setupToggle('togglePasswordConfirmation', 'password_confirmation', 'eyeIconConfirmation');
 });
