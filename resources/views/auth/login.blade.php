@@ -16,7 +16,7 @@
             <div class="col-md-4">
                 <div class="card shadow border-0">
                     <div class="card-body p-4">
-                        <h4 class="text-center mb-4">INVENTORI BAKERY</h4>
+                        <h4 class="text-center mb-4">LOGIN USER</h4>
 
                         @if(session('loginError'))
                             <div class="alert alert-danger">{{ session('loginError') }}</div>
