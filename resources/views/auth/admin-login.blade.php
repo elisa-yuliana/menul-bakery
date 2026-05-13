@@ -16,7 +16,7 @@
             <div class="col-md-4">
                 <div class="card shadow border-0">
                     <div class="card-body p-4">
-                        <h4 class="text-center mb-4">INVENTORI BAKERY</h4>
+                        <h4 class="text-center mb-4">LOGIN ADMIN </h4>
 
                         @if(session('loginError'))
                             <div class="alert alert-danger">{{ session('loginError') }}</div>
@@ -32,6 +32,7 @@
                                 <label class="form-label">Password</label>
                                 <input type="password" name="password" class="form-control" placeholder="********" required>
                             </div>
+                            <a href="{{ route('login') }}" class="btn btn-secondary w-100 mb-2">Kembali</a>
                             <button type="submit" class="btn btn-primary w-100">Login </button>
                         </form>
                         <div class="mt-3 text-center">

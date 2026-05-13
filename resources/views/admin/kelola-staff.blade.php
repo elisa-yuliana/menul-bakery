@@ -39,14 +39,35 @@
                                     </td>
                                     <td>
                                         @if(Auth::id() !== $user->id)
-                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Yakin ingin mencabut akses staff ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                        </form>
+                                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalHapus{{ $user->id }}">
+                                                    Hapus
+                                                </button>
+                                            </td>
+                                            <div class="modal fade" id="modalHapus{{ $user->id }}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-danger text-white">
+                                                            <h5 class="modal-title">Konfirmasi Hapus</h5>
+                                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <p>Apakah Anda yakin ingin menghapus pengguna <strong>{{ $user->name }}</strong>?</p>
+                                                            <p class="text-muted small">Tindakan ini tidak dapat dibatalkan dan akan menghapus histori terkait pengguna ini.</p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-success">Ya, Hapus Data</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @else
-                                        <span class="text-muted small italic">Akun Anda</span>
-                                        @endif
+                                            <span class="text-muted small italic">Akun Anda</span>
+                                        @endif 
                                     </td>
                                 </tr>
                                 @endforeach

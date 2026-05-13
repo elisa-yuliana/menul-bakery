@@ -16,7 +16,7 @@
             <div class="col-md-4">
                 <div class="card shadow border-0">
                     <div class="card-body p-4">
-                        <h4 class="text-center mb-4">INVENTORI BAKERY</h4>
+                        <h4 class="text-center mb-4">MENUL BAKERY</h4>
                         @if($errors->any())
     <div class="alert alert-danger">
         <ul class="mb-0">
@@ -48,7 +48,7 @@
         <label>Konfirmasi Password</label>
         <input type="password" name="password_confirmation" class="form-control" required>
     </div>
-    
+    <a href="{{ route('login') }}" class="btn btn-secondary w-100 mb-2">Kembali ke Login</a>
     <button type="submit" class="btn btn-danger w-100">Daftar</button>
 </form>
    </div>
