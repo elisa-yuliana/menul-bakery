@@ -33,7 +33,6 @@
             </form>
         </div>
     </div>
-
             @if(session('success'))
                 <div class="alert alert-success m-3">
                     {{ session('success') }}
@@ -94,33 +93,32 @@
                     </table>
                 </div>
             </div>
-        </div>
+</div>
 
 <div class="modal fade" id="modalKeluar" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
-        <div class="modal-header">
-            <h5 class="modal-title">Input Bahan Keluar</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
+            <div class="modal-header">
+                <h5 class="modal-title">Input Bahan Keluar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-        <form action="{{ route('bahan_keluar.store') }}" method="POST">
-            @csrf
-            <div class="modal-body">
-
-                <div class="mb-3">
-                    <label class="form-label">Cari Bahan</label>
-                    <select name="bahan_id" class="form-select js-select2" style="width: 100%" required>
-                        <option value="">-- Ketik Nama Bahan --</option>
-                        @foreach($bahans as $bahan)
-                            <option value="{{ $bahan->id }}">
-                                {{ $bahan->nama_bahan }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-             <div class="mb-3">
+            <form action="{{ route('bahan_keluar.store') }}" method="POST">
+             @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Cari Bahan</label>
+                        <select name="bahan_id" class="form-select js-select2" style="width: 100%" required>
+                            <option value="">-- Ketik Nama Bahan --</option>
+                            @foreach($bahans as $bahan)
+                                <option value="{{ $bahan->id }}">
+                                    {{ $bahan->nama_bahan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">Jumlah Keluar</label>
                         <input type="number" name="jumlah_keluar" class="form-control" placeholder="0" required>
                     </div>
@@ -134,11 +132,10 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Batal
                         </button>
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-primary">
                             Simpan Data
                         </button>
                     </div>
-
                 </div>
             </form>
 

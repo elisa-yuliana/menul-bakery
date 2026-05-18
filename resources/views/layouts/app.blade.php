@@ -70,13 +70,42 @@
                     </li>
                     @endif
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white {{ request()->is('logout') ? ' active' : '' }}" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <img src="{{ asset('img\icons\box-arrow-left.svg') }}" class="me-2 icon-putih"> logout
+                        <!-- Ubah onclick agar memicu modal Bootstrap -->
+                        <a class="nav-link text-white {{ request()->is('logout') ? ' active' : '' }}" 
+                        href="#" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#logoutModal">
+                            <img src="{{ asset('img/icons/box-arrow-left.svg') }}" class="me-2 icon-putih"> logout
                         </a>
+
+                        <!-- Form tetap disembunyikan di sini -->
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
                     </li>
+                                    <!-- Logout Modal -->
+                    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                        <div class="modal-dialog ">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah Anda yakin ingin keluar dari aplikasi?
+                                </div>
+                                <div class="modal-content p-3 d-flex flex-row justify-content-end gap-2" style="border-top: 1px solid #dee2e6;">
+                                    <!-- Tombol Batal -->
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    
+                                    <!-- Tombol Yakin (Akan memicu form logout) -->
+                                    <button type="button" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        Ya, Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </ul>
             </nav>
             <main class="col-md-10 ms-sm-auto px-md-4 py-4">

@@ -105,11 +105,11 @@
                                             </form>
                                         </td>
                                         <div class="modal fade" id="modalLunas{{ $item->id }}" tabindex="-1" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <div class="modal-header bg-success text-white">
+                                                    <div class="modal-header">
                                                         <h5 class="modal-title">Konfirmasi Pelunasan</h5>
-                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body text-center">
                                                         <p>Apakah Anda yakin ingin menandai <strong>{{ $item->nama_bahan }}</strong> sebagai lunas?</p>
@@ -136,45 +136,44 @@
                         </div>
                     </div>
                 </div>
-    <div class="col-md-6">
-        <div class="card shadow-sm border-0">
-            <div class="card-header text-center fw-bold text-white bg-danger mb-0">
-                Bahan Limit
-            </div>
-            <div class="card-body p-0">
-                <table class="table table-sm table-striped mb-0">
-                    <thead class="bg-light">
-                        <tr class="text-muted" style="font-size: 0.85rem;">
-                            <th class="ps-3">Bahan</th>
-                            <th class="text-center">Stok</th>
-                            <th class="text-center">Stok Minimum</th>
-                            <th class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($stoklimit as $item)
-                        <tr style="font-size: 0.9rem;">
-                            <td class="ps-3 align-middle">{{ $item->nama_bahan }}</td>
-                            <td class="text-center align-middle">
-                                <span class="badge bg-danger">{{ $item->jumlah_stok }} 
-                                        {{ 
-                                            $item->satuan == 'gram' ? 'g' : 
-                                            ($item->satuan) 
-                                        }}
-                                </span>
-                            </td>
-                            <td>{{ $item->stok_minimum }}</td>
-                                <td class="text-center">
-                                            <a href="{{ route('bahan.edit', $item->id) }}" class="btn btn-warning btn-sm p-0 px-2 text-white">
-                                                edit
-                                            </a>
-
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header text-center fw-bold text-white bg-danger mb-0">
+                            Bahan Limit
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-sm table-striped mb-0">
+                                <thead class="bg-light">
+                                    <tr class="text-muted" style="font-size: 0.85rem;">
+                                        <th class="ps-3">Bahan</th>
+                                        <th class="text-center">Stok</th>
+                                        <th class="text-center">Stok Minimum</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($stoklimit as $item)
+                                        <tr style="font-size: 0.9rem;">
+                                        <td class="ps-3 align-middle">{{ $item->nama_bahan }}</td>
+                                            <td class="text-center align-middle">
+                                                <span class="badge bg-danger">{{ $item->jumlah_stok }} 
+                                                        {{ 
+                                                            $item->satuan == 'gram' ? 'g' : 
+                                                            ($item->satuan) 
+                                                        }}
+                                                </span>
+                                            </td>
+                                        <td>{{ $item->stok_minimum }}</td>
+                                            <td class="text-center">
+                                                        <a href="{{ route('bahan.edit', $item->id) }}" class="btn btn-warning btn-sm p-0 px-2 text-white">
+                                                            edit
+                                                        </a>
                                             <button type="button" class="btn btn-success btn-sm p-0 px-2" data-bs-toggle="modal" data-bs-target="#modalTambahBahan{{ $item->id }}">
                                                 <img src="{{ asset('img/icons/check-lg.svg') }}" class="align-items-center icon-putih">
                                             </button>
                                         </td>
                                             <div class="modal fade" id="modalTambahBahan{{ $item->id }}" tabindex="-1" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title">Tambah Stok Bahan</h5>
