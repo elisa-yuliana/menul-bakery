@@ -44,7 +44,7 @@
                 <button type="submit" class="btn btn-primary w-100 fw-bold mb-3" style="background-color: #0d6efd;">Login</button>
 
                 <div class="text-center">
-                    <p class="small text-muted">Belum punya akun? <a href="{{ route('admin.register') }}" class="text-decoration-none">Daftar Staff</a></p>
+                    <p class="small text-muted">Belum punya akun? <a href="{{ route('admin.register') }}" class="text-decoration-none">Daftar Admin</a></p>
                 </div>
             </form>
         </div>
