@@ -22,6 +22,7 @@ class Bahan extends Model
     ];
 
     protected $casts = [
+        'tanggal_expired' => 'date',
         'tanggal_jatuh_tempo' => 'date',
     ];
 
