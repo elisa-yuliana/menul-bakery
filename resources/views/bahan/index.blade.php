@@ -47,35 +47,35 @@
 
                                     @forelse($bahans as $bahan)
                                         @php
-    $hariIni = \Carbon\Carbon::today();
-    $tujuhHariLagi = \Carbon\Carbon::today()->addDays(7);
+                                        $hariIni = \Carbon\Carbon::today();
+                                        $tujuhHariLagi = \Carbon\Carbon::today()->addDays(7);
 
-    // 1. Cek Stok Minim (Prioritas Merah)
-    $infoMinim = ($bahan->jumlah_stok <= $bahan->stok_minimum);
+                                        // 1. Cek Stok Minim (Prioritas Merah)
+                                        $infoMinim = ($bahan->jumlah_stok <= $bahan->stok_minimum);
 
-    // 2. Logika Jatuh Tempo
-    $isTelat = false;
-    $isWarning = false; 
+                                        // 2. Logika Jatuh Tempo
+                                        $isTelat = false;
+                                        $isWarning = false; 
 
-    if ($bahan->metode_pembayaran == 'tempo' && $bahan->tanggal_jatuh_tempo) {
-        $tglTempo = \Carbon\Carbon::parse($bahan->tanggal_jatuh_tempo)->startOfDay();
-        
-        // Cek apakah SUDAH LEWAT hari H (Sudah telat)
-        $isTelat = $tglTempo->isPast() && !$tglTempo->isToday();
-        
-        // Cek apakah HARI INI sampai 7 hari ke depan (Peringatan)
-        // Ini akan mencakup: Hari H-7, H-6, ..., sampai Hari H
-        $isWarning = $tglTempo->between($hariIni, $tujuhHariLagi);
-    }
+                                        if ($bahan->metode_pembayaran == 'tempo' && $bahan->tanggal_jatuh_tempo) {
+                                            $tglTempo = \Carbon\Carbon::parse($bahan->tanggal_jatuh_tempo)->startOfDay();
+                                            
+                                            // Cek apakah SUDAH LEWAT hari H (Sudah telat)
+                                            $isTelat = $tglTempo->isPast() && !$tglTempo->isToday();
+                                            
+                                            // Cek apakah HARI INI sampai 7 hari ke depan (Peringatan)
+                                            // Ini akan mencakup: Hari H-7, H-6, ..., sampai Hari H
+                                            $isWarning = $tglTempo->between($hariIni, $tujuhHariLagi);
+                                        }
 
-    // 3. Tentukan class baris
-    $rowClass = '';
-    if ($infoMinim ) {
-        $rowClass = 'table-danger'; // Merah: Stok habis ATAU sudah lewat jatuh tempo
-    } elseif ($isWarning || $isTelat) {
-        $rowClass = 'table-warning'; // Kuning: Aktif dari H-7 sampai Hari H
-    }
-@endphp
+                                        // 3. Tentukan class baris
+                                        $rowClass = '';
+                                        if ($infoMinim ) {
+                                            $rowClass = 'table-danger'; // Merah: Stok habis ATAU sudah lewat jatuh tempo
+                                        } elseif ($isWarning || $isTelat) {
+                                            $rowClass = 'table-warning'; // Kuning: Aktif dari H-7 sampai Hari H
+                                        }
+                                    @endphp
 
                                         <tr class="{{ $rowClass }}">
                                             <td>{{ $No++ }}</td>

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
     <title>Login - Menul Bakery</title>
     <style>
         body { background-color: #f8f9fa; }
@@ -21,7 +23,23 @@
                 </a>
                 <h4 class="fw-bold">LOGIN USER</h4>
             </div>
+           @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            <ul class="mb-0">
+                <li>{{ session('success') }}</li>
+            </ul>
+        </div>
+    @endif
             <form action="{{ route('login.submit') }}" method="POST">
                 @csrf
                 <div class="mb-3">

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
     <title>Daftar Staff - Menul Bakery</title>
     <style>
         body { background-color: #f8f9fa; }
@@ -18,28 +20,33 @@
         <div class="row justify-content-center w-100">
             <div class="col-md-5">
                 <div class="card shadow border-0">
-                    <div class="card-body p-4">
-                        <!-- Ikon Person di atas Title -->
-                        <div class="text-center mb-3">
-                            <img src="{{ asset('img/icons/person-circle.svg') }}" width="50" alt="User Icon" class="mb-2">
-                            <h4 class="fw-bold">DAFTAR AKUN</h4>
-                        </div>
+                   <div class="card-body p-4">
+    <div class="text-center mb-3">
+        <img src="{{ asset('img/icons/person-circle.svg') }}" width="50" alt="User Icon" class="mb-2">
+        <h4 class="fw-bold">DAFTAR AKUN</h4>
+    </div>
 
-                        @if($errors->any())
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-                        <form action="{{ route('register.submit') }}" method="POST">
-                            @csrf
-                            <!-- Role diset sebagai admin secara default sesuai kode awal Anda -->
-                            <input type="hidden" name="role" value="admin">
-
+    @if(session('success'))
+        <div class="alert alert-success">
+            <ul class="mb-0">
+                <li>{{ session('success') }}</li>
+            </ul>
+        </div>
+    @endif
+ 
+    <form action="{{ route('register.submit') }}" method="POST">
+        @csrf
+        <input type="hidden" name="role" value="admin">
                             <div class="mb-3">
                                 <label class="form-label">Nama Lengkap</label>
                                 <input type="text" name="name" class="form-control" placeholder="Masukkan nama" required>
