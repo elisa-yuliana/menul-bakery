@@ -113,6 +113,10 @@
                                 </div>
                             </div>
                             <div class="mb-3">
+                                <label for="tanggal_expired" class="form-label">Tanggal Expired</label>
+                                <input type="date" class="form-control" id="tanggal_expired" name="tanggal_expired" value="{{ $bahan->tanggal_expired ? $bahan->tanggal_expired->format('Y-m-d') : '' }}">
+                            </div>
+                            <div class="mb-3">
                                 <label for="stok_minimum" class="form-label">Stok Minimum</label>
                                 <input type="number" class="form-control" id="stok_minimum" name="stok_minimum" value="{{ $bahan->stok_minimum }}" required>
                             </div>

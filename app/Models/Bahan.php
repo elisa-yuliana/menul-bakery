@@ -15,6 +15,7 @@ class Bahan extends Model
         'jumlah_stok',
         'satuan',
         'harga',
+        'tanggal_expired',
         'stok_minimum',
         'metode_pembayaran',
         'tanggal_jatuh_tempo',

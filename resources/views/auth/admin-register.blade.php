@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
     <title>Daftar Admin - Menul Bakery</title>
 
     <style>
@@ -34,6 +36,14 @@
                                     @foreach($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                <ul class="mb-0">
+                                    <li>{{ session('success') }}</li>
                                 </ul>
                             </div>
                         @endif

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
     <title>Login - Menul Bakery</title>
     <style>
         body { background-color: #f8f9fa; }
@@ -20,9 +22,23 @@
                     <img src="{{ asset('img/icons/person-circle.svg') }}" width="50" alt="User Icon" class="mb-2">
                 </a>
                 <h4 class="fw-bold">LOGIN ADMIN</h4>
-                @if(session('loginError'))
-                    <div class="alert alert-danger">{{ session('loginError') }}</div>
-                @endif
+                @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            <ul class="mb-0">
+                <li>{{ session('success') }}</li>
+            </ul>
+        </div>
+    @endif
             </div>
             <form action="{{ route('login.submit') }}" method="POST">
                 @csrf
@@ -44,7 +60,7 @@
                 <button type="submit" class="btn btn-primary w-100 fw-bold mb-3" style="background-color: #0d6efd;">Login</button>
 
                 <div class="text-center">
-                    <p class="small text-muted">Belum punya akun? <a href="{{ route('admin.register') }}" class="text-decoration-none">Daftar Staff</a></p>
+                    <p class="small text-muted">Belum punya akun? <a href="{{ route('admin.register') }}" class="text-decoration-none">Daftar Admin</a></p>
                 </div>
             </form>
         </div>
