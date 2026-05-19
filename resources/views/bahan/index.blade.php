@@ -34,6 +34,7 @@
                                         <th>Kategori</th>
                                         <th>Stok</th>
                                         <th>Harga</th>
+                                        <th>Tanggal Expired</th>
                                         <th>Stok Minimum</th>
                                         <th>Pembayaran</th>
                                         <th>Jatuh Tempo</th>
@@ -90,6 +91,9 @@
                                                 }}
                                             </td>
                                             <td>Rp {{ number_format($bahan->harga, 0, ',', '.') }}</td>
+                                            <td>
+                                                {{ \Carbon\Carbon::parse($bahan->tanggal_expired)->format('d-m-Y') }}
+                                            </td>
                                             <td>{{ $bahan->stok_minimum }}
                                                 {{ 
                                                     $bahan->satuan == 'gram' ? 'g' : 
@@ -206,6 +210,10 @@
                                         value="{{ old('harga', 0) }}">
 
                             <input type="hidden" name="harga" id="harga" value="{{ old('harga', 0) }}">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tanggal Expired</label>
+                            <input type="date" name="tanggal_expired" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Stok Minimum</label>
