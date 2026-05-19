@@ -26,6 +26,7 @@ class BahanController extends Controller
             'jumlah_stok' => 'required|numeric',
             'satuan' => 'required',
             'harga' => 'required|numeric',
+            'tanggal_expired'=>'required|date',
             'stok_minimum' => 'required|numeric',
             'metode_pembayaran' => 'required',
         ]);
@@ -53,6 +54,7 @@ class BahanController extends Controller
             'jumlah_stok' => 'required|numeric',
             'satuan' => 'required',
             'harga' => 'required|numeric',
+            'tanggal_expired'=>'required|date',
             'stok_minimum' => 'required|numeric',
             'metode_pembayaran' => 'required',
         ]);

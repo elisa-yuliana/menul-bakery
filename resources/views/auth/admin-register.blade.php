@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
     <title>Daftar Admin - Menul Bakery</title>
+
     <style>
         body { background-color: #f8f9fa; }
         .register-container { margin-top: 50px; margin-bottom: 50px; }
@@ -15,6 +17,7 @@
         .form-control:focus { box-shadow: none; border-color: #0d6efd; }
     </style>
 </head>
+
 <body>
     <div class="container register-container d-flex justify-content-center align-items-center">
         <div class="row justify-content-center w-100">
@@ -88,6 +91,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 

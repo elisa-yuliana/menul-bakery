@@ -51,6 +51,7 @@
                                             <th>Jumlah Stok Awal</th>
                                             <th>Jumlah Stok Tambah</th>
                                             <th>Jumah total</th>
+                                            <th>Tanggal Expired</th>
                                         </tr>
                                 </thead>
                                     <tbody>
@@ -77,6 +78,7 @@
                                                             ($d->bahan->satuan) 
                                                         }}
                                                 </td>
+                                                <td>{{ \Carbon\Carbon::parse($d->tanggal_expired)->format('d-m-Y') }}</td>
                                             </tr>
                                              @empty
                                                 <tr>
@@ -118,7 +120,10 @@
                                     <label class="form-label">Tanggal</label>
                                     <input type="date" name="tanggal_masuk" class="form-control" value="{{ date('Y-m-d') }}" required>
                                 </div>
-
+                                <div class="mb-3">
+                                    <label class="form-label">Tanggal Expired</label>
+                                    <input type="date" name="tanggal_expired" class="form-control" value="{{ date('Y-m-d') }}" required>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                     <button type="submit" class="btn btn-primary">Simpan Data</button>

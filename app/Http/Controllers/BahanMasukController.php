@@ -33,6 +33,7 @@ class BahanMasukController extends Controller
         'bahan_id' => 'required|exists:bahans,id',
         'jumlah_masuk' => 'required|numeric|min:1',
         'tanggal_masuk' => 'required|date',
+        'tanggal_expired'=> 'required|date',
     ]);
 
     $bahan = Bahan::findOrFail($request->bahan_id);
@@ -46,6 +47,7 @@ class BahanMasukController extends Controller
         'jumlah_masuk' => $jumlahMasuk,
         'stok_sekarang' => $stokSekarang,
         'tanggal_masuk' => $request->tanggal_masuk,
+        'tanggal_expired'=>$request->tanggal_expired,
     ]);
     $bahan->jumlah_stok = $stokSekarang;
     $bahan->save();

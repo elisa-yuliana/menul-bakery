@@ -15,12 +15,14 @@ class Bahan extends Model
         'jumlah_stok',
         'satuan',
         'harga',
+        'tanggal_expired',
         'stok_minimum',
         'metode_pembayaran',
         'tanggal_jatuh_tempo',
     ];
 
     protected $casts = [
+        'tanggal_expired' => 'date',
         'tanggal_jatuh_tempo' => 'date',
     ];
 
